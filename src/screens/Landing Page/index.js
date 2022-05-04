@@ -14,7 +14,7 @@ const LandingPage = () => {
           The Procurement <br />
           Portal
         </h1>
-        <div></div>
+        <button>Sign in with Microsoft</button>
       </div>
     </div>
   );
