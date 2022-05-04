@@ -54,14 +54,14 @@
 }
 .landingContent h1 {
   font-size: 60px;
-  line-height: 60px;
+  line-height: 70px;
   font-weight: 600;
 }
 
 .landingContent button {
   box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.1);
   width: 180px;
-  height: 58px;
+  height: 54px;
   border-radius: 10px;
   background: #fff;
   color: #6b9109;
