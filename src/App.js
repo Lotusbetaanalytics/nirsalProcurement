@@ -7,11 +7,14 @@ function App() {
   return (
     <>
       <Router>
-        <Routes> <Route path="/sidebar" exact element={<Sidebar />} /> </Routes>
+        <Routes> 
+          <Route path="/sidebar" exact element={<Sidebar />} /> 
           {/* <Route path="/" exact element={<Home />} /> */}
 
           <Route path="/" element={<LandingPage />} />
+          </Routes>
       </Router>
+     
     </>
   );
 }
