@@ -1,0 +1,85 @@
+.landingPageContainer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 10px;
+  background-color: #f5f5f5;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: linear-gradient(359.39deg,
+      rgba(59, 82, 2, 0.8) 37.04%,
+      rgba(107, 145, 9, 0) 98.88%),
+    url(../../assets/hero.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  gap: 50px;
+}
+
+.landingLogo {
+  width: 200px;
+  height: 139px;
+  box-sizing: border-box;
+  padding: 30px 5px;
+}
+
+.landingLogo img {
+  width: 100%;
+  height: 100%;
+}
+
+.landingContent {
+  box-sizing: border-box;
+  padding: 40px 60px;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.landingContent span {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 54px;
+}
+
+.landingContent span::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: #fff;
+  margin-top: -5px;
+}
+
+.landingContent h1 {
+  font-size: 60px;
+  line-height: 70px;
+  font-weight: 600;
+}
+
+.landingContent button {
+  box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.1);
+  width: 180px;
+  height: 54px;
+  border-radius: 10px;
+  background: #fff;
+  color: #6b9109;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.landingContent button:hover {
+  background: #6b9109;
+  color: #fff;
+}
+
+/* Media Query */
