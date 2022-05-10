@@ -1,0 +1,24 @@
+.menubar {
+    display: flex;
+    padding: .5rem;
+}
+
+.menu {
+    display: flex;
+    padding: 1rem 3rem;
+    justify-content: center;
+    align-items: center;
+    background: whitesmoke;
+}
+
+.menu:hover {
+    background: var(--nirsalTransparentGreen);
+    border-bottom: 2px solid var(--nirsalLightGreen);
+    color: white;
+}
+
+.active {
+    background: var(--nirsalLightGreen);
+    border-bottom: 2px solid var(--nirsalGreen);
+    color: white;
+}
