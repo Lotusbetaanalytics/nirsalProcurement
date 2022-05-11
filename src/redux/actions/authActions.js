@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   USER_AUTH_FAIL,
   USER_AUTH_REQUEST,
+  USER_AUTH_RESET,
   USER_AUTH_SUCCESS,
   USER_PROFILE_FAIL,
   USER_PROFILE_REQUEST,
@@ -63,4 +64,9 @@ export const getMe = () => async (dispatch, getState) => {
           : error.message,
     });
   }
+};
+
+export const userLogout = () => (dispatch) => {
+  localStorage.removeItem("userInfo");
+  dispatch({ type: USER_AUTH_RESET });
 };

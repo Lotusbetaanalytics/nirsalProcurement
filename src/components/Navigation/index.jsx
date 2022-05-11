@@ -1,24 +1,32 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Helpers } from '../'
 import { AiOutlineLogout } from 'react-icons/ai'
 import logo from '../../assets/logo.png'
 import styles from './styles.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { getMe } from '../../redux/actions/authActions'
+import { getMe, userLogout } from '../../redux/actions/authActions'
 
 const Navigation = () => {
+    // Helpers
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     // user state
     const userProfile = useSelector((state) => state.userProfile)
     const { user = {} } = userProfile
-    const role = "admin"
+    const role = "hop"
 
     console.log(user)
     useEffect(() => {
         // get loggedin user
         dispatch(getMe())
     }, [dispatch])
+
+    const logoutHandler = () => {
+        dispatch(userLogout())
+        navigate("/")
+    }
     return (
         <div className={styles.navigation}>
             <div>
@@ -41,7 +49,7 @@ const Navigation = () => {
 
             <div className={styles.links}>
                 <ul>
-                    <li><Link to="/#"><AiOutlineLogout /> Logout</Link></li>
+                    <li onClick={logoutHandler}><Link to="/#"><AiOutlineLogout /> Logout</Link></li>
                 </ul>
             </div>
         </div>
