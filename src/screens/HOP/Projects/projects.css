@@ -1,0 +1,20 @@
+.loading__indicator {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.displayTableStyles {
+  box-shadow: "none";
+  width: "90%";
+  box-sizing: "border-box";
+  padding-left: "30px";
+  background: "white";
+  margin: "auto 1rem";
+}
+
+.contentContainer {
+  margin-left: 150px;
+}
