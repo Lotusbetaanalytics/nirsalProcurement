@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Input,
@@ -11,22 +11,31 @@ import { useSelector, useDispatch } from "react-redux";
 import { useToast } from "@chakra-ui/react";
 import { frontdeskInitiateProject } from "../../../redux/actions/FrontDesk/frontDeskProjectActions";
 import { INITIATE_PROJECT_RESET } from "../../../redux/constants/FrontDesk/frontDeskProject";
+import { getMe } from "../../../redux/actions/authActions";
 
 const FrontDeskNewProject = () => {
   // Helpers
   const dispatch = useDispatch();
   const toast = useToast();
 
+  const userProfile = useSelector((state) => state.userProfile)
+  const { user = {} } = userProfile
+
   const createNewProject = useSelector((state) => state.createNewProject);
   const { loading, error, success } = createNewProject;
 
+  useEffect(() => {
+    dispatch(getMe())
+}, [dispatch])
 
   // Form State
-  const [employeeName,setEmployeeName] = useState("");
-  const [employeeEmail,setEmployeeEmail] =useState("");
+  const employeeName = user.fullname;
+  const employeeEmail = user.email;
+  console.log(employeeEmail,employeeName)
   const [projectTitle, setProjectTitle] = useState("");
   const [vendorName, setVendorName] = useState("");
   const [headOfProcurement, setHeadOfProcurement] = useState("");
+  const [document,setDocument] = useState("")
 
   // Submit form
   const submitHandler = (e) => {
@@ -66,13 +75,12 @@ const FrontDeskNewProject = () => {
               <Input
                 title="Employee Name"
                 value={employeeName}
-                onChange={(e) => setEmployeeName(e.target.value)}
+                
                 required={true}
               />
                <Input
                 title="Employee Email"
                 value={employeeEmail}
-                onChange={(e) => setEmployeeEmail(e.target.value)}
                 required={true}
               />
               <Select
@@ -94,12 +102,21 @@ const FrontDeskNewProject = () => {
                 onChange={(e) => setHeadOfProcurement(e.target.value)}
                 required={true}
               />
-              <Button
+              <Input
+                title="Upload Document"
+                value={document}
+                onChange={(e) => setDocument(e.target.value)}
+                required={true}
+                type={"file"}
+              />
+              <div style={{marginLeft:'3.2%'}} > 
+               <Button
                 title="Add User"
                 Icon={BsPlusCircleDotted}
                 disabled={loading}
                 loading={loading}
               />
+                </div>
               
             </div>
           </form>
