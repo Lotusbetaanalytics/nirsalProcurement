@@ -49,14 +49,10 @@ const TotalProjects = () => {
   ];
 
   return (
-    <div className="table__container">
-      {/* <div>
-        <Navigation />
-      </div> */}
-      <div className="contentContainer">
-        <div>
-          <PageTitle title="Projects" />
-        </div>
+    <div className="appContainer">
+      <Navigation />
+      <div className="contentContainer contentsRight">
+        <PageTitle title="Projects" />
         <div>
           <TabNavigation tabs={Tabs} />
         </div>
@@ -127,15 +123,18 @@ const TotalProjects = () => {
                 actionsColumnIndex: -1,
 
                 headerStyle: {
-                  backgroundColor: "rgba(196, 196, 196, 0.32)",
+                  backgroundColor: "none",
                   color: "black",
+                  padding: "10px",
+                  borderBottom: "1px solid rgba(196, 196, 196, 0.32)",
                 },
               }}
               style={{
                 boxShadow: "none",
-                width: "80%",
+                width: "95%",
                 boxSizing: "border-box",
                 paddingLeft: "30px",
+                paddingRight: "30px",
                 backgroundColor: "white",
                 margin: "auto 1rem",
               }}

@@ -18,7 +18,7 @@ import {
   ViewColumn,
 } from "@material-ui/icons";
 import MaterialTable from "material-table";
-import { PageTitle, TabNavigation } from "../../../../components";
+import { Navigation, PageTitle, TabNavigation } from "../../../../components";
 import { Tabs } from "../../../../components/TabNavigation";
 import "./terminatedProjects.css";
 import "../projects.css";
@@ -49,14 +49,10 @@ const TerminatedProjects = () => {
   ];
 
   return (
-    <div className="table__container">
-      {/* <div>
-        <Navigation />
-      </div> */}
-      <div className="contentContainer">
-        <div>
-          <PageTitle title="Projects" />
-        </div>
+    <div className="appContainer">
+      <Navigation />
+      <div className="contentContainer contentsRight">
+        <PageTitle title="Projects" />
         <div>
           <TabNavigation tabs={Tabs} />
         </div>
@@ -116,7 +112,7 @@ const TerminatedProjects = () => {
                   <ViewColumn {...props} ref={ref} />
                 )),
               }}
-              title={`Total Projects: ${data.length}`}
+              title={`Terminated Projects: ${data.length}`}
               columns={columns}
               data={data}
               options={{
@@ -127,15 +123,18 @@ const TerminatedProjects = () => {
                 actionsColumnIndex: -1,
 
                 headerStyle: {
-                  backgroundColor: "rgba(196, 196, 196, 0.32)",
+                  backgroundColor: "none",
                   color: "black",
+                  padding: "10px",
+                  borderBottom: "1px solid rgba(196, 196, 196, 0.32)",
                 },
               }}
               style={{
                 boxShadow: "none",
-                width: "80%",
+                width: "95%",
                 boxSizing: "border-box",
                 paddingLeft: "30px",
+                paddingRight: "30px",
                 backgroundColor: "white",
                 margin: "auto 1rem",
               }}

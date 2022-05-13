@@ -24,8 +24,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/sidebar" exact element={<Sidebar />} />
-          {/* <Route path="/" exact element={<Home />} /> */}
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" exact element={<Home />} />
+          {/* <Route path="/" element={<LandingPage />} /> */}
           <Route path="/" exact element={<Home />} />
           <Route path="/app/dashboard" exact element={<AdminDashboard />} />
           <Route path="/app/config" exact element={<AdminConfig />} />

@@ -10,17 +10,25 @@ const TabNavigation = ({ tabs }) => {
       {tabs.map((tab) => {
         return (
           <div
-            className={`${clickedTab && `active`}  tab__btn`}
+            className={`${tab.active && `active`}  tab__btn`}
             onClick={() => {
               navigate(tab.path);
-
-              clickedTab ? setClickedTab(false) : setClickedTab(true);
+              tabs.filter(({ id }) => {
+                return id === tab.id;
+              })[0].active = true;
+              tabs
+                .filter(({ id }) => {
+                  return id !== tab.id;
+                })
+                .map((tab) => {
+                  return (tab.active = false);
+                });
 
               setClickedTab((prev) => {
-                if (prev) {
-                  return false;
-                } else {
+                if (prev === false) {
                   return true;
+                } else {
+                  return false;
                 }
               });
             }}
@@ -36,10 +44,35 @@ const TabNavigation = ({ tabs }) => {
 export default TabNavigation;
 
 export const Tabs = [
-  { id: 1, title: "Total Projects", path: "/hop/projects/total" },
-  { id: 2, title: "Pending Projects", path: "/hop/projects/pending" },
-  { id: 3, title: "New Projects", path: "/hop/projects/new" },
-  { id: 4, title: "Closed Projects", path: "/hop/projects/closed" },
-  { id: 5, title: "Approved Projects", path: "/hop/projects/approved" },
-  { id: 6, title: "Terminated Projects", path: "/hop/projects/terminated" },
+  {
+    id: 1,
+    title: "Total Projects",
+    path: "/hop/projects/total",
+    active: false,
+  },
+  {
+    id: 2,
+    title: "Pending Projects",
+    path: "/hop/projects/pending",
+    active: false,
+  },
+  { id: 3, title: "New Projects", path: "/hop/projects/new", active: false },
+  {
+    id: 4,
+    title: "Closed Projects",
+    path: "/hop/projects/closed",
+    active: false,
+  },
+  {
+    id: 5,
+    title: "Approved Projects",
+    path: "/hop/projects/approved",
+    active: false,
+  },
+  {
+    id: 6,
+    title: "Terminated Projects",
+    path: "/hop/projects/terminated",
+    active: false,
+  },
 ];
