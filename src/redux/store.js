@@ -9,6 +9,7 @@ import {
 } from "./reducers/admin/rolesReducers";
 import { createUserReducer } from "./reducers/admin/userReducers";
 import { authReducer, profileReducer } from "./reducers/authReducers";
+import { confirmedProjectReducer, initiateNewProjectReducer, pendingProjectReducer, rejectedProjectReducer } from "./reducers/FrontDesk/frontDeskReducer";
 
 const reducer = combineReducers({
   userLogin: authReducer,
@@ -18,6 +19,10 @@ const reducer = combineReducers({
   updateRole: updateRoleReducer,
   deleteRole: deleteRoleReducer,
   createUser: createUserReducer,
+  getFrontDeskConfirmedProject: confirmedProjectReducer,
+  getFrontDeskPendingProject: pendingProjectReducer,
+  getFrontDeskRejectedProject: rejectedProjectReducer,
+  createNewProject : initiateNewProjectReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
