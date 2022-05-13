@@ -4,7 +4,7 @@ import "./tabNavigation.css";
 
 const TabNavigation = ({ tabs }) => {
   const navigate = useNavigate();
-  const [clickedTab, setClickedTab] = React.useState(false);
+
   return (
     <div className="tabs__container">
       {tabs.map((tab) => {
@@ -23,14 +23,6 @@ const TabNavigation = ({ tabs }) => {
                 .map((tab) => {
                   return (tab.active = false);
                 });
-
-              setClickedTab((prev) => {
-                if (prev === false) {
-                  return true;
-                } else {
-                  return false;
-                }
-              });
             }}
           >
             {tab.title}
