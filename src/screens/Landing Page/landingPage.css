@@ -42,7 +42,7 @@
 .landingContent span {
   font-weight: 500;
   font-size: 24px;
-  line-height: 54px;
+  line-height: 40px;
 }
 .landingContent span::after {
   content: "";
@@ -70,12 +70,32 @@
   justify-content: center;
   align-items: center;
   font-size: 14px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease;
   cursor: pointer;
 }
 .landingContent button:hover {
-  background: #6b9109;
+  background: #2a2a29;
   color: #fff;
 }
 
 /* Media Query */
+@media screen and (max-width: 600px) {
+  .landingPageContainer {
+    padding: 2px 0px;
+  }
+
+  .landingLogo {
+    width: 100px;
+    height: 80px;
+    box-sizing: border-box;
+    padding: 10px 5px;
+  }
+  .landingContent span {
+    font-size: 20px;
+    line-height: 34px;
+  }
+  .landingContent h1 {
+    font-size: 40px;
+    line-height: 50px;
+  }
+}
