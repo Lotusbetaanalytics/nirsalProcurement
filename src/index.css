@@ -1,16 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap");
 
 body {
   margin: 0;
   padding: 0;
-  
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Montserrat", sans-serif;
+}
+
+:root {
+  --nirsalGreen: #3b5202;
+  --nirsalLightGreen: #6b9109;
+  --nirsalTransparentGreen: #a1bb5e;
 }
 
 a {
@@ -22,38 +27,45 @@ a:hover {
   color: white;
 }
 
+/* Page Structure */
 .appContainer {
   display: flex;
   height: 100vh;
   justify-content: space-around;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   padding-right: 0;
-  background: white;
-  background-color: bisque;
+  background: rgba(196, 196, 196, 0.17);
 }
 
 .contentsRight {
   flex-grow: 1;
-  padding: .5rem 5rem;
+  padding: 0.5rem 2rem;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
   flex: 0.95;
 }
 
-.green {
-  background: rgba(8, 126, 140, 1);
-  color: white;
+.pageContents {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 2rem;
 }
 
-.lightGreen {
+/* End of Page Structure */
 
-  background: rgba(165, 208, 83, 1);
-
-  color: white;
+/* CardFlex */
+.cardFlex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 
-.nmfb__InputFlex {
+/* End of CardFlex */
+
+/* Forms */
+.nirsal__InputFlex {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -61,59 +73,61 @@ a:hover {
   flex: 1;
 }
 
-.nmfb__child {
+.small {
+  flex-basis: 33%;
+}
+
+.medium {
   flex-basis: 50%;
 }
 
-.nmfb__adult {
+.large {
   flex-basis: 100%;
 }
 
-
-.nmfb__InputContainer {
+.nirsal__InputContainer {
   display: flex;
   flex-direction: column;
-  margin-bottom: .5rem;
-  padding: .5rem 2rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 2rem;
+  justify-content: center;
 }
 
-
-.nmfb__InputContainerSM {
+.nirsal__InputContainerSM {
   display: flex;
   flex-direction: column;
-  margin-bottom: .5rem;
-  padding: .5rem 2rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 2rem;
 }
 
-
-.nmfb__InputContainer label {
+.nirsal__InputContainer label {
   font-size: 13px;
-  margin-left: .3rem;
-  margin-bottom: .5rem;
+  margin-left: 0.3rem;
+  margin-bottom: 0.5rem;
 }
 
-.nmfb__InputContainer input {
+.nirsal__InputContainer input {
   width: 100%;
   height: 4rem;
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0.26);
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
   border: 1px solid gainsboro;
   border-radius: 10px;
   background: white;
 }
 
-.nmfb__InputContainer input:read-only {
-  background: whitesmoke
+.nirsal__InputContainer input:read-only {
+  background: whitesmoke;
 }
 
-.nmfb__InputContainer select {
+.nirsal__InputContainer select {
   width: 100%;
   height: 4rem;
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0.26);
   background: white;
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
   border: 1px solid gainsboro;
   border-radius: 10px;
   appearance: none;
@@ -121,26 +135,25 @@ a:hover {
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1em;
-
 }
 
-.nmfb__InputContainer textarea {
+.nirsal__InputContainer textarea {
   width: 100%;
   height: 7rem;
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0.26);
-  padding: .5rem 1.5rem;
+  padding: 0.5rem 1.5rem;
   border-radius: 10px;
   background: white;
 }
 
-.nmfb__InputContainer span {
+.nirsal__InputContainer span {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.nmfb__InputContainer input[type="radio"] {
+.nirsal__InputContainer input[type="radio"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -153,16 +166,15 @@ a:hover {
   margin: 0 1rem;
 }
 
-.nmfb__InputContainer input[type="radio"]:checked {
-  background-color: #FFCC00;
+.nirsal__InputContainer input[type="radio"]:checked {
+  background-color: var(--nirsalGreen);
 }
 
-
-.nmfb__InputContainer button {
+.nirsal__InputContainer button {
   width: 100%;
   height: 4rem;
   outline: none;
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
   border-radius: 10px;
   display: flex;
   text-align: center;
@@ -170,11 +182,11 @@ a:hover {
   justify-content: center;
 }
 
-.nmfb__InputContainerSM button {
+.nirsal__InputContainerSM button {
   width: 100%;
   height: 3rem;
   outline: none;
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
   border-radius: 10px;
   display: flex;
   text-align: center;
@@ -187,60 +199,94 @@ a:hover {
   /* justify-content: space-between; */
 }
 
+.btnContainer {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 0.5rem;
+  padding: 1rem 0;
+}
+
 .btn {
   outline: none;
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
   border-radius: 10px;
   display: flex;
   text-align: center;
   align-items: center;
   justify-content: center;
+  margin-top: 1.4rem;
 }
 
+.btn svg {
+  margin: 0 0.5rem;
+}
 
-.navGreen {
-  background: rgba(8, 126, 140, 1);
+.loading {
+  height: 40px;
+  width: 40px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  border-top-color: #fff;
+  border-bottom-color: #fff;
+  animation: spinner3 800ms ease infinite;
+}
+
+@keyframes spinner3 {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+button:disabled {
+  background: whitesmoke;
+  color: black;
+  cursor: not-allowed;
+}
+
+.green {
+  background: var(--nirsalGreen);
   color: white;
-  border-radius: 40px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
 }
 
+.lightGreen {
+  background: var(--nirsalLightGreen);
+  color: white;
+}
+
+/* Forms */
 
 @media screen and (max-width: 1050px) {
   .contentsRight {
     flex: 0.85;
-    padding: .5rem 3rem;
+    padding: 0.5rem 3rem;
   }
 }
 
 @media screen and (max-width: 700px) {
   .appContainer {
     display: flex;
-    padding: .5rem;
+    padding: 0.5rem;
     flex-direction: column;
     padding: 0;
   }
 
   .contentsRight {
     flex: 1;
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
   }
 }
 
 @media screen and (max-width: 550px) {
-
   .appContainer {
     display: flex;
-    padding: .5rem;
+    padding: 0.5rem;
     flex-direction: column;
     padding: 0;
   }
 
   .contentsRight {
     flex: 1;
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
   }
-
 }
