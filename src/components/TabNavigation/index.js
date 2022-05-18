@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./tabNavigation.css";
 
-const TabNavigation = ({ tabs }) => {
+const TabNavigation = ({ tabs, active }) => {
   const navigate = useNavigate();
 
   return (
@@ -10,7 +10,7 @@ const TabNavigation = ({ tabs }) => {
       {tabs.map((tab) => {
         return (
           <div
-            className={`${tab.active && `active`}  tab__btn`}
+            className={`${tab.active && `active`}    tab__btn`}
             onClick={() => {
               navigate(tab.path);
               tabs.filter(({ id }) => {

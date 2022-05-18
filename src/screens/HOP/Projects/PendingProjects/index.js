@@ -18,18 +18,36 @@ import {
   ViewColumn,
 } from "@material-ui/icons";
 import MaterialTable from "material-table";
-import { Navigation, PageTitle, TabNavigation } from "../../../../components";
+import {
+  Modal,
+  Navigation,
+  PageTitle,
+  TabNavigation,
+} from "../../../../components";
 import { Tabs } from "../../../../components/TabNavigation";
 import "./pendingProjects.css";
 import "../projects.css";
-import { useNavigate } from "react-router-dom";
 import { getTotalProjects } from "../ProjectApiCalls";
+import { AssignProject } from "../NewProjects";
 
 const PendingProjects = () => {
   const [data, setData] = React.useState([]);
   const [findingData, setFindingData] = React.useState(false);
+  const [id, setId] = React.useState("");
+  const [open, setOpen] = React.useState(false);
 
-  const navigate = useNavigate();
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleAssign = (id) => {
+    handleOpen();
+    setId(id);
+  };
 
   React.useEffect(() => {
     setFindingData(true);
@@ -144,10 +162,10 @@ const PendingProjects = () => {
                   iconProps: {
                     style: { fontSize: "20px", color: "gold" },
                   },
-                  tooltip: "View all",
+                  tooltip: "Assign to",
 
                   onClick: (event, rowData) => {
-                    navigate(`/totalproject/view/${rowData.ID}`);
+                    handleAssign(rowData.id);
                   },
                 },
               ]}
@@ -155,14 +173,19 @@ const PendingProjects = () => {
                 Action: (props) => (
                   <button
                     onClick={(event) => props.action.onClick(event, props.data)}
-                    className=""
+                    className="btn__table btn__assign"
                   >
-                    <span>{props.action.tooltip}</span>
+                    {props.action.tooltip}
                   </button>
                 ),
               }}
             />
           )}
+          <Modal
+            isVisible={open}
+            handleClose={handleClose}
+            content={<AssignProject id={id} handleClose={handleClose} />}
+          />
         </div>
       </div>
     </div>

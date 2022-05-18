@@ -18,16 +18,28 @@ import {
   ViewColumn,
 } from "@material-ui/icons";
 import MaterialTable from "material-table";
-import { Navigation, PageTitle, TabNavigation } from "../../../../components";
+import {
+  Modal,
+  Navigation,
+  PageTitle,
+  TabNavigation,
+} from "../../../../components";
 import { Tabs } from "../../../../components/TabNavigation";
 import "./newProjects.css";
 import "../projects.css";
 import { useNavigate } from "react-router-dom";
-import { getTotalProjects } from "../ProjectApiCalls";
+import {
+  approveProject,
+  assignProject,
+  getTotalProjects,
+} from "../ProjectApiCalls";
 
 const NewProjects = () => {
   const [data, setData] = React.useState([]);
   const [findingData, setFindingData] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [openAssign, setOpenAssign] = React.useState(false);
+  const [id, setId] = React.useState("");
 
   const navigate = useNavigate();
 
@@ -37,6 +49,24 @@ const NewProjects = () => {
   }, []);
 
   console.log(data);
+
+  const confirmHandler = (id) => {
+    openAssign && handleAssignClose();
+    setOpen(true);
+    setId(id);
+  };
+  const assignHandler = (id) => {
+    open && handleClose();
+    setOpenAssign(true);
+    setId(id);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleAssignClose = () => {
+    setOpenAssign(false);
+  };
 
   const columns = [
     { title: "SN", field: "name", type: "string" },
@@ -144,10 +174,21 @@ const NewProjects = () => {
                   iconProps: {
                     style: { fontSize: "20px", color: "gold" },
                   },
-                  tooltip: "View all",
+                  tooltip: "Confirm",
 
                   onClick: (event, rowData) => {
-                    navigate(`/totalproject/view/${rowData.ID}`);
+                    confirmHandler(rowData._id);
+                  },
+                },
+                {
+                  icon: "visibility",
+                  iconProps: {
+                    style: { fontSize: "20px", color: "gold" },
+                  },
+                  tooltip: "Assign to",
+
+                  onClick: (event, rowData) => {
+                    assignHandler(rowData._id);
                   },
                 },
               ]}
@@ -155,14 +196,28 @@ const NewProjects = () => {
                 Action: (props) => (
                   <button
                     onClick={(event) => props.action.onClick(event, props.data)}
-                    className=""
+                    className={`btn__table  ${
+                      props.action.tooltip === "Confirm"
+                        ? "btn__confirm"
+                        : "btn__assign"
+                    }`}
                   >
-                    <span>{props.action.tooltip}</span>
+                    {props.action.tooltip}
                   </button>
                 ),
               }}
             />
           )}
+          <Modal
+            isVisible={open}
+            onClose={handleClose}
+            content={<ConfirmProject id={id} handleClose={handleClose} />}
+          />
+          <Modal
+            isVisible={openAssign}
+            onClose={handleAssignClose}
+            content={<AssignProject id={id} handleClose={handleAssignClose} />}
+          />
         </div>
       </div>
     </div>
@@ -170,3 +225,130 @@ const NewProjects = () => {
 };
 
 export default NewProjects;
+
+export const ConfirmProject = ({ id, handleClose }) => {
+  const [data, setData] = React.useState([]);
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [projectName, setProjectName] = React.useState("");
+  const [vendorName, setVendorName] = React.useState("");
+  const [projectTitle, setProjectTitle] = React.useState("");
+  const [projectDeskOfficer, setProjectDeskOfficer] = React.useState("");
+  const [uploadedDocuments, setUploadedDocuments] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [findingData, setFindingData] = React.useState(false);
+
+  React.useEffect(() => {
+    setFindingData(true);
+  }, []);
+
+  const onConfirmHandler = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    approveProject(id, setLoading, handleClose, data);
+  };
+
+  return (
+    <div>
+      {findingData ? (
+        <div>Fetching...</div>
+      ) : (
+        <form onSubmit={onConfirmHandler} className="projectForm">
+          <div>
+            <label>Name</label>
+            <input type="text" />
+          </div>
+          <div>
+            <label>Email</label>
+            <input type="text" />
+          </div>
+          <div>
+            <label>Project Name</label>
+            <input type="text" />
+          </div>
+          <div>
+            <label>vendor Name</label>
+            <input type="text" />
+          </div>
+          <div>
+            <label>Project Title</label>
+            <input type="text" />
+          </div>
+          <div>
+            <label>Project Desk Officer</label>
+            <input type="text" />
+          </div>
+          <div>
+            <label>Uploaded Documents</label>
+          </div>
+          <div>
+            <button type="submit">Approve</button>
+          </div>
+        </form>
+      )}
+    </div>
+  );
+};
+export const AssignProject = ({ id, handleClose }) => {
+  const [data, setData] = React.useState([]);
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [projectName, setProjectName] = React.useState("");
+  const [vendorName, setVendorName] = React.useState("");
+  const [projectTitle, setProjectTitle] = React.useState("");
+  const [projectDeskOfficer, setProjectDeskOfficer] = React.useState("");
+  const [uploadedDocuments, setUploadedDocuments] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [findingData, setFindingData] = React.useState(false);
+
+  React.useEffect(() => {
+    setFindingData(true);
+  }, []);
+
+  const onAssignHandler = (event) => {
+    event.preventDefault();
+    setLoading(true);
+    assignProject(id, setLoading, handleClose, data);
+  };
+
+  return (
+    <div>
+      {findingData ? (
+        <div>Fetching...</div>
+      ) : (
+        <form onSubmit={onAssignHandler} className="projectForm">
+          <div>
+            <label>Name</label>
+            <input type="text" />
+          </div>
+          <div>
+            <label>Email</label>
+            <input type="text" />
+          </div>
+          <div>
+            <label>Project Name</label>
+            <input type="text" />
+          </div>
+          <div>
+            <label>vendor Name</label>
+            <input type="text" />
+          </div>
+          <div>
+            <label>Project Title</label>
+            <input type="text" />
+          </div>
+          <div>
+            <label>Project Desk Officer</label>
+            <input type="text" />
+          </div>
+          <div>
+            <label>Uploaded Documents</label>
+          </div>
+          <div>
+            <button type="submit">Assign</button>
+          </div>
+        </form>
+      )}
+    </div>
+  );
+};

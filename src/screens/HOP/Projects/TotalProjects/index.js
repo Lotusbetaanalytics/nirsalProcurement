@@ -28,11 +28,13 @@ import { getTotalProjects } from "../ProjectApiCalls";
 const TotalProjects = () => {
   const [data, setData] = React.useState([]);
   const [findingData, setFindingData] = React.useState(false);
+  const [active, setActive] = React.useState(false);
 
   const navigate = useNavigate();
 
   React.useEffect(() => {
     setFindingData(true);
+    setActive(true);
     getTotalProjects(setFindingData, setData);
   }, []);
 
@@ -54,7 +56,7 @@ const TotalProjects = () => {
       <div className="contentContainer contentsRight">
         <PageTitle title="Projects" />
         <div>
-          <TabNavigation tabs={Tabs} />
+          <TabNavigation tabs={Tabs} active={active} />
         </div>
         <div>
           {findingData ? (
