@@ -41,13 +41,13 @@ const TotalProjects = () => {
   console.log(data);
 
   const columns = [
-    { title: "SN", field: "name", type: "string" },
-    { title: "Name", field: "email", type: "string" },
-    { title: "Email", field: "alias", type: "string" },
-    { title: "Project Title", field: "division", type: "string" },
-    { title: "Contract Type", field: "AvatarGroup", type: "string" },
-    { title: "Project Desk Officer", field: "EXApprovalStatus" },
-    { title: "Front Desk Officer", field: "EXApprovalStatus" },
+    // { title: "SN", field: "name", type: "string" },
+    { title: "Name", field: "name", type: "string" },
+    { title: "Email", field: "email", type: "string" },
+    { title: "Project Title", field: "projectTitle", type: "string" },
+    { title: "Contract Type", field: "contractType", type: "string" },
+    { title: "PDO", field: "projectDeskOfficer" },
+    { title: "Front Desk", field: "frontDeskOfficer" },
   ];
 
   return (
@@ -127,8 +127,12 @@ const TotalProjects = () => {
                 headerStyle: {
                   backgroundColor: "none",
                   color: "black",
+                  fontSize: "14px",
                   padding: "10px",
                   borderBottom: "1px solid rgba(196, 196, 196, 0.32)",
+                },
+                rowStyle: {
+                  fontSize: "12px",
                 },
               }}
               style={{
@@ -157,7 +161,7 @@ const TotalProjects = () => {
                 Action: (props) => (
                   <button
                     onClick={(event) => props.action.onClick(event, props.data)}
-                    className=""
+                    className="btn__table btn__assign"
                   >
                     <span>{props.action.tooltip}</span>
                   </button>

@@ -183,8 +183,9 @@ const PendingProjects = () => {
           )}
           <Modal
             isVisible={open}
-            handleClose={handleClose}
+            onClose={handleClose}
             content={<AssignProject id={id} handleClose={handleClose} />}
+            size="lg"
           />
         </div>
       </div>

@@ -44,6 +44,7 @@ const NewProjects = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
+    console.log(navigator.onLine);
     setFindingData(true);
     getTotalProjects(setFindingData, setData);
   }, []);
@@ -212,11 +213,13 @@ const NewProjects = () => {
             isVisible={open}
             onClose={handleClose}
             content={<ConfirmProject id={id} handleClose={handleClose} />}
+            size="lg"
           />
           <Modal
             isVisible={openAssign}
             onClose={handleAssignClose}
             content={<AssignProject id={id} handleClose={handleAssignClose} />}
+            size="lg"
           />
         </div>
       </div>
@@ -250,42 +253,42 @@ export const ConfirmProject = ({ id, handleClose }) => {
 
   return (
     <div>
-      {findingData ? (
-        <div>Fetching...</div>
-      ) : (
-        <form onSubmit={onConfirmHandler} className="projectForm">
-          <div>
-            <label>Name</label>
-            <input type="text" />
-          </div>
-          <div>
-            <label>Email</label>
-            <input type="text" />
-          </div>
-          <div>
-            <label>Project Name</label>
-            <input type="text" />
-          </div>
-          <div>
-            <label>vendor Name</label>
-            <input type="text" />
-          </div>
-          <div>
-            <label>Project Title</label>
-            <input type="text" />
-          </div>
-          <div>
-            <label>Project Desk Officer</label>
-            <input type="text" />
-          </div>
-          <div>
-            <label>Uploaded Documents</label>
-          </div>
-          <div>
-            <button type="submit">Approve</button>
-          </div>
-        </form>
-      )}
+      <form onSubmit={onConfirmHandler} className="projectForm">
+        <div>
+          <label>Name</label>
+          <input type="text" />
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="text" />
+        </div>
+        <div>
+          <label>Project Name</label>
+          <input type="text" />
+        </div>
+        <div>
+          <label>vendor Name</label>
+          <input type="text" />
+        </div>
+        <div>
+          <label>Project Title</label>
+          <input type="text" />
+        </div>
+        <div>
+          <label>Project Desk Officer</label>
+          <input type="text" />
+        </div>
+        <div>
+          <label>Uploaded Documents</label>
+        </div>
+        <div></div>
+        <div></div>
+        <div className="btn__left">
+          <button type="submit" className="btn__table btn__assign ">
+            Approve
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
@@ -313,42 +316,42 @@ export const AssignProject = ({ id, handleClose }) => {
 
   return (
     <div>
-      {findingData ? (
-        <div>Fetching...</div>
-      ) : (
-        <form onSubmit={onAssignHandler} className="projectForm">
-          <div>
-            <label>Name</label>
-            <input type="text" />
-          </div>
-          <div>
-            <label>Email</label>
-            <input type="text" />
-          </div>
-          <div>
-            <label>Project Name</label>
-            <input type="text" />
-          </div>
-          <div>
-            <label>vendor Name</label>
-            <input type="text" />
-          </div>
-          <div>
-            <label>Project Title</label>
-            <input type="text" />
-          </div>
-          <div>
-            <label>Project Desk Officer</label>
-            <input type="text" />
-          </div>
-          <div>
-            <label>Uploaded Documents</label>
-          </div>
-          <div>
-            <button type="submit">Assign</button>
-          </div>
-        </form>
-      )}
+      <form onSubmit={onAssignHandler} className="projectForm">
+        <div>
+          <label>Name</label>
+          <input type="text" />
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="text" />
+        </div>
+        <div>
+          <label>Project Name</label>
+          <input type="text" />
+        </div>
+        <div>
+          <label>vendor Name</label>
+          <input type="text" />
+        </div>
+        <div>
+          <label>Project Title</label>
+          <input type="text" />
+        </div>
+        <div>
+          <label>Project Desk Officer</label>
+          <input type="text" />
+        </div>
+        <div>
+          <label>Uploaded Documents</label>
+        </div>
+        <div></div>
+        <div></div>
+        <div className="btn__left">
+          <button type="submit" className="btn__table btn__assign ">
+            Assign
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
