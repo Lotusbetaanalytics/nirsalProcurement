@@ -16,6 +16,17 @@ import {
   pendingProjectReducer,
   rejectedProjectReducer,
 } from "./reducers/FrontDesk/frontDeskReducer";
+import { postProjectReducer } from "./reducers/HopReducer/hopReducer";
+import {
+  getFrontDeskReducer,
+  getProcurementHeadReducer,
+  getProjectDeskReducer,
+} from "./reducers/HopReducer/getProjectUserReducer";
+import {
+  getAllProjectReducer,
+  getNewProjectReducer,
+  getPendingProjectReducer,
+} from "./reducers/getAllProjectsReducer/getAllProjectReducer";
 
 const reducer = combineReducers({
   userLogin: authReducer,
@@ -30,6 +41,13 @@ const reducer = combineReducers({
   getFrontDeskPendingProject: pendingProjectReducer,
   getFrontDeskRejectedProject: rejectedProjectReducer,
   createNewProject: initiateNewProjectReducer,
+  postNewProject: postProjectReducer,
+  getProcurementPerson: getProcurementHeadReducer,
+  getFrontDeskPerson: getFrontDeskReducer,
+  getProjectPerson: getProjectDeskReducer,
+  getProjectAll: getAllProjectReducer,
+  getProjectNew: getNewProjectReducer,
+  getProjectPending: getPendingProjectReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

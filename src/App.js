@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Sidebar from "./components/sidebar";
-import {} from "./screens";
 import {
   ApprovedProjects,
   ClosedProjects,
@@ -21,6 +20,9 @@ import {
   FrontDeskRejectedProject,
 } from "./screens";
 import Dashboard from "./screens/Dashboard";
+import HopDashboard from "./screens/HopDashboard";
+import PdoDashboard from "./screens/PdoDashboard";
+import PdoNewProjectList from "./screens/PdoNewProjectList";
 
 function App() {
   return (
@@ -86,6 +88,13 @@ function App() {
           />
 
           <Route path="/hop/dashboard" exact element={<Dashboard />} />
+          <Route path="/hop/dashboard" exact element={<HopDashboard />} />
+          <Route path="/pdo/dashboard" exact element={<PdoDashboard />} />
+          <Route
+            path="/pdo/newprojectlist"
+            exact
+            element={<PdoNewProjectList />}
+          />
         </Routes>
       </Router>
     </>

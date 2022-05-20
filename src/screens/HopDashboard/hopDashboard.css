@@ -1,0 +1,72 @@
+/* Page Structure */
+.appContainer {
+  display: flex;
+  height: 100vh;
+  justify-content: space-around;
+  padding: 0.5rem 1rem;
+  padding-right: 0;
+  background: rgba(196, 196, 196, 0.17);
+}
+
+.contentsRight {
+  flex-grow: 1;
+  padding: 0.5rem 2rem;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  flex: 0.95;
+}
+
+.pageContent {
+  display: flex;
+  flex-direction: row;
+  /* background: blue; */
+  background-color: whitesmoke;
+  margin-top: 20px;
+  /* padding: 2rem; */
+}
+
+/* End of Page Structure */
+
+/* CardFlex */
+.cardFlex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.initiNewProject {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #6b9109;
+  height: 65px;
+  padding: 1rem;
+  border-radius: 10px;
+  color: white;
+  margin-left: 1rem;
+  font-size: 15px;
+  width: 20%;
+  font-weight: bold;
+}
+
+.initiNewProject svg {
+  margin-left: 1rem;
+  font-size: 20px;
+}
+
+.formBtn {
+  display: flex;
+  justify-content: flex-end;
+  /* margin-left: 59%; */
+  padding: 20px;
+}
+
+.btn {
+  padding: 1rem;
+  width: 50%;
+  margin-left: 45%;
+  box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);
+}

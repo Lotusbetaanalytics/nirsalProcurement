@@ -18,3 +18,6 @@ export { default as FrontDeskNewProject } from "./FrontDesk/FrontDeskNewProject"
 export { default as FrontDeskConfirmedProject } from "./FrontDesk/Projects/ConfirmedProjects";
 export { default as FrontDeskPendingProject } from "./FrontDesk/Projects/PendingProjects";
 export { default as FrontDeskRejectedProject } from "./FrontDesk/Projects/RejectedProjects";
+export { default as HopDashboard } from "./HopDashboard";
+export { default as PdoDashboard } from "./PdoDashboard";
+export { default as PdoNewProjectList } from "./PdoNewProjectList";
