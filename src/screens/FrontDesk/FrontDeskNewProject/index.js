@@ -12,6 +12,7 @@ import { useToast } from "@chakra-ui/react";
 import { frontdeskInitiateProject } from "../../../redux/actions/FrontDesk/frontDeskProjectActions";
 import { INITIATE_PROJECT_RESET } from "../../../redux/constants/FrontDesk/frontDeskProject";
 import { getMe } from "../../../redux/actions/authActions";
+import { headofProcurement } from "../../../redux/actions/HeadOfProcurement/headOfprocurement";
 
 const FrontDeskNewProject = () => {
   // Helpers
@@ -21,26 +22,37 @@ const FrontDeskNewProject = () => {
   const userProfile = useSelector((state) => state.userProfile)
   const { user = {} } = userProfile
 
+  console.log(user)
+
   const createNewProject = useSelector((state) => state.createNewProject);
   const { loading, error, success } = createNewProject;
 
   useEffect(() => {
     dispatch(getMe())
+    dispatch(headofProcurement())
 }, [dispatch])
+
+const  getHeadofProcurement = useSelector((state) => state.getHeadofProcurement);
+  const {data} =  getHeadofProcurement;
+  console.log(data)
 
   // Form State
   const employeeName = user.fullname;
   const employeeEmail = user.email;
-  console.log(employeeEmail,employeeName)
   const [projectTitle, setProjectTitle] = useState("");
   const [vendorName, setVendorName] = useState("");
-  const [headOfProcurement, setHeadOfProcurement] = useState("");
   const [document,setDocument] = useState("")
+  const headOfProcurement = data && data._id;
+
+  const headOfProcurementName = data && data.fullname
+  console.log(headOfProcurementName)
 
   // Submit form
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(frontdeskInitiateProject(employeeEmail));
+    
+    dispatch(frontdeskInitiateProject(employeeEmail,employeeName,projectTitle,vendorName,headOfProcurement,document));
+    console.log(document)
   };
   if (success) {
     toast({
@@ -83,13 +95,13 @@ const FrontDeskNewProject = () => {
                 value={employeeEmail}
                 required={true}
               />
-              <Select
+              <Input
                 title="Project Title"
                 value={projectTitle}
-                onChange={(e) => setProjectTitle(e.target.value)}
                 required={true}
-                
+                onChange={(e) => setProjectTitle(e.target.value)}
               />
+              
               <Input
                 title="Vendor Name"
                 value={vendorName}
@@ -98,8 +110,7 @@ const FrontDeskNewProject = () => {
               />
               <Input
                 title="Head of Procurement"
-                value={headOfProcurement}
-                onChange={(e) => setHeadOfProcurement(e.target.value)}
+                value={headOfProcurementName}
                 required={true}
               />
               <Input
@@ -111,7 +122,7 @@ const FrontDeskNewProject = () => {
               />
               <div style={{marginLeft:'3.2%'}} > 
                <Button
-                title="Add User"
+                title="Initiate Project"
                 Icon={BsPlusCircleDotted}
                 disabled={loading}
                 loading={loading}

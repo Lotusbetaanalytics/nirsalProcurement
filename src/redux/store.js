@@ -27,6 +27,7 @@ import {
   getNewProjectReducer,
   getPendingProjectReducer,
 } from "./reducers/getAllProjectsReducer/getAllProjectReducer";
+import { headofProcurementReducer } from "./reducers/HeadofProcurement/HeadofProcurementReducer";
 
 const reducer = combineReducers({
   userLogin: authReducer,
@@ -48,6 +49,7 @@ const reducer = combineReducers({
   getProjectAll: getAllProjectReducer,
   getProjectNew: getNewProjectReducer,
   getProjectPending: getPendingProjectReducer,
+  getHeadofProcurement: headofProcurementReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
