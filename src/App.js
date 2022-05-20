@@ -19,7 +19,7 @@ import {
   FrontDeskPendingProject,
   FrontDeskRejectedProject,
 } from "./screens";
-import Dashboard from "./screens/Dashboard";
+// import Dashboard from "./screens/Dashboard";
 import HopDashboard from "./screens/HopDashboard";
 import PdoDashboard from "./screens/PdoDashboard";
 import PdoNewProjectList from "./screens/PdoNewProjectList";
@@ -87,7 +87,6 @@ function App() {
             element={<FrontDeskRejectedProject />}
           />
 
-          <Route path="/hop/dashboard" exact element={<Dashboard />} />
           <Route path="/hop/dashboard" exact element={<HopDashboard />} />
           <Route path="/pdo/dashboard" exact element={<PdoDashboard />} />
           <Route
