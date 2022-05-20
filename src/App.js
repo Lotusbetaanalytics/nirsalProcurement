@@ -1,21 +1,24 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Sidebar from "./components/sidebar";
+import {} from "./screens";
 import {
   ApprovedProjects,
   ClosedProjects,
-  LandingPage,
   NewProjects,
   PendingProjects,
   TerminatedProjects,
   TotalProjects,
-} from "./screens";
-import {
   AdminDashboard,
   Home,
   AdminConfig,
   AdminSubUnit,
   AdminUsers,
+  FrontDeskDashboard,
+  FrontDeskNewProject,
+  FrontDeskConfirmedProject,
+  FrontDeskPendingProject,
+  FrontDeskRejectedProject,
 } from "./screens";
 
 function App() {
@@ -54,6 +57,31 @@ function App() {
             path="/hop/projects/terminated"
             exact
             element={<TerminatedProjects />}
+          />
+          <Route
+            path="/app/frontdesk/dashboard"
+            exact
+            element={<FrontDeskDashboard />}
+          />
+          <Route
+            path="/app/frontdesk/newproject"
+            exact
+            element={<FrontDeskNewProject />}
+          />
+          <Route
+            path="/app/frontdesk/confirmedproject"
+            exact
+            element={<FrontDeskConfirmedProject />}
+          />
+          <Route
+            path="/app/frontdesk/pendingproject"
+            exact
+            element={<FrontDeskPendingProject />}
+          />
+          <Route
+            path="/app/frontdesk/rejectedproject"
+            exact
+            element={<FrontDeskRejectedProject />}
           />
         </Routes>
       </Router>

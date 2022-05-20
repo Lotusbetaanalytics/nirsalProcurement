@@ -13,3 +13,8 @@ export { default as NewProjects } from "./HOP/Projects/NewProjects";
 export { default as TerminatedProjects } from "./HOP/Projects/TerminatedProjects";
 export { default as ApprovedProjects } from "./HOP/Projects/ApprovedProjects";
 export { default as ClosedProjects } from "./HOP/Projects/ClosedProjects";
+export { default as FrontDeskDashboard } from "./FrontDesk/FrontDeskDashboard";
+export { default as FrontDeskNewProject } from "./FrontDesk/FrontDeskNewProject";
+export { default as FrontDeskConfirmedProject } from "./FrontDesk/Projects/ConfirmedProjects";
+export { default as FrontDeskPendingProject } from "./FrontDesk/Projects/PendingProjects";
+export { default as FrontDeskRejectedProject } from "./FrontDesk/Projects/RejectedProjects";
