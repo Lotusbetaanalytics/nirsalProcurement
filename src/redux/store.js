@@ -10,6 +10,7 @@ import {
 import { createUserReducer } from "./reducers/admin/userReducers";
 import { authReducer, profileReducer } from "./reducers/authReducers";
 import { confirmedProjectReducer, initiateNewProjectReducer, pendingProjectReducer, rejectedProjectReducer } from "./reducers/FrontDesk/frontDeskReducer";
+import { headofProcurementReducer } from "./reducers/HeadofProcurement/HeadofProcurementReducer";
 
 const reducer = combineReducers({
   userLogin: authReducer,
@@ -23,6 +24,7 @@ const reducer = combineReducers({
   getFrontDeskPendingProject: pendingProjectReducer,
   getFrontDeskRejectedProject: rejectedProjectReducer,
   createNewProject : initiateNewProjectReducer,
+  getHeadofProcurement: headofProcurementReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

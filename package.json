@@ -1,13 +1,13 @@
 {
   "name": "nirsalprocurement",
-  "proxy": "https://procurement-api-052022.herokuapp.com",
+  "proxy": "https://procurement-api-052022.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^1.7.2",
     "@emotion/react": "11",
     "@emotion/styled": "11",
-    "@material-ui/core": "^4.12.3",
+    "@material-ui/core": "^4.12.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -17,11 +17,12 @@
     "echarts": "^5.3.0",
     "echarts-for-react": "^3.0.2",
     "framer-motion": "4",
+    "material": "^0.4.3",
     "material-table": "^1.69.3",
     "okra-js": "^2.0.2",
-    "react": "^17.0.2",
+    "react": "^18.1.0",
     "react-chartjs-2": "^4.0.0",
-    "react-dom": "^17.0.2",
+    "react-dom": "^18.1.0",
     "react-icons": "^4.3.1",
     "react-microsoft-login": "^1.15.0",
     "react-phone-number-input": "^3.1.44",
@@ -33,6 +34,7 @@
     "redux-thunk": "^2.4.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.4",
+    "table": "^6.8.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
