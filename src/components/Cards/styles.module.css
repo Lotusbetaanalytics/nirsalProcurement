@@ -1,61 +1,57 @@
 .card {
-    display: flex;
-    flex-basis: 23%;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
-    background: white;
-    justify-content: flex-start;
-    border-radius: 5px;
+  display: flex;
+  flex-basis: 23%;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background: white;
+  justify-content: flex-start;
+  border-radius: 5px;
 }
 
 .card h3 {
-    font-size: 16px;
-    color: var(--nirsalGreen);
-    font-weight: bold;
+  font-size: 16px;
+  color: var(--nirsalGreen);
+  font-weight: bold;
 }
 
 .card p {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 .card:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
-
 
 /* Media Query */
 
 @media screen and (max-width: 1300px) {
-    .card {
-        flex-basis: 23%;
-    }
+  .card {
+    flex-basis: 23%;
+  }
 }
 
 @media screen and (max-width: 1050px) {
-    .card {
-        flex-basis: 31%;
-    }
+  .card {
+    flex-basis: 31%;
+  }
 }
 
 @media screen and (max-width: 1024px) {
-
-    .card {
-        flex-basis: 47%;
-    }
+  .card {
+    flex-basis: 47%;
+  }
 }
 
 @media screen and (max-width: 700px) {
-    .card {
-        flex-basis: 47%;
-    }
-
+  .card {
+    flex-basis: 47%;
+  }
 }
 
 @media screen and (max-width: 550px) {
-    .card {
-        flex-basis: 100%;
-    }
-
+  .card {
+    flex-basis: 100%;
+  }
 }

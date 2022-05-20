@@ -20,6 +20,7 @@ import {
   FrontDeskPendingProject,
   FrontDeskRejectedProject,
 } from "./screens";
+import Dashboard from "./screens/Dashboard";
 
 function App() {
   return (
@@ -83,6 +84,8 @@ function App() {
             exact
             element={<FrontDeskRejectedProject />}
           />
+
+          <Route path="/hop/dashboard" exact element={<Dashboard />} />
         </Routes>
       </Router>
     </>
