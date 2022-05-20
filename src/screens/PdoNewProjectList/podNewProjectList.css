@@ -1,0 +1,9 @@
+.pageContentList {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.pageContentList.title {
+  font-weight: bold;
+}
