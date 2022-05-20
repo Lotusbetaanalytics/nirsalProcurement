@@ -19,7 +19,7 @@ const Home = () => {
     if (err) {
       toast({
         title: "Error",
-        description: err,
+        description: err.message,
         status: "error",
         duration: 9000,
         isClosable: true,
@@ -39,7 +39,7 @@ const Home = () => {
   // if token exist redirect to dashboard
   useEffect(() => {
     if (userInfo) {
-      navigate("/app/dashboard");
+      navigate("/app/config");
     }
   }, [navigate, userInfo]);
 
@@ -69,7 +69,7 @@ const Home = () => {
           <CircularProgress isIndeterminate color="#FFFFFF" />
         ) : (
           <MicrosoftLogin
-            clientId="ee241df3-3ed6-424f-95cb-2b58de8f5e07"
+            clientId="fef75ba3-3281-4d23-9f7b-b5df41c77caa"
             authCallback={authHandler}
           />
         )}

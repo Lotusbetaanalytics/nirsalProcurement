@@ -1,0 +1,1 @@
+export const BASE_URL = "https://procurement-api-052022.herokuapp.com";

@@ -9,17 +9,21 @@ import {
 } from "../../../components";
 import { BsPlusCircleDotted } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
-import { addRole, fetchRoles } from "../../../redux/actions/admin/roleActions";
-import { CREATE_ROLES_RESET } from "../../../redux/constants/admin/rolesConstants";
 import { useToast } from "@chakra-ui/react";
+import { CREATE_SUBUNIT_RESET } from "../../../redux/constants/admin/subunitConstants";
+import { addSubunit } from "../../../redux/actions/admin/subunitActions";
+import { fetchUsers } from "../../../redux/actions/admin/userActions";
 
 const AdminSubUnit = () => {
   // Helpers
   const dispatch = useDispatch();
   const toast = useToast();
 
-  const getRole = useSelector((state) => state.getRole);
-  const { loading, error, success, roles } = getRole;
+  const getUser = useSelector((state) => state.getUser);
+  const { users } = getUser;
+
+  const createSubUnit = useSelector((state) => state.createSubUnit);
+  const { loading, error, success } = createSubUnit;
 
   // Menubar Items
   const menu = [
@@ -29,23 +33,24 @@ const AdminSubUnit = () => {
   ];
 
   // Form State
-  const [name, setName] = useState("");
-  const [role, setRole] = useState("");
+  const [title, setTitle] = useState("");
+  const [email, setEmail] = useState("");
+  const [head, setHead] = useState("");
 
   // Submit form
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(addRole(name));
+    dispatch(addSubunit(title, email, head));
   };
   if (success) {
     toast({
       title: "Notification",
-      description: "Role added Successfully",
+      description: "Subunit Head created Successfully",
       status: "success",
       duration: 9000,
       isClosable: true,
     });
-    dispatch({ type: CREATE_ROLES_RESET });
+    dispatch({ type: CREATE_SUBUNIT_RESET });
   }
   if (error) {
     toast({
@@ -55,11 +60,11 @@ const AdminSubUnit = () => {
       duration: 9000,
       isClosable: true,
     });
-    dispatch({ type: CREATE_ROLES_RESET });
+    dispatch({ type: CREATE_SUBUNIT_RESET });
   }
 
   useEffect(() => {
-    dispatch(fetchRoles());
+    dispatch(fetchUsers());
   }, [dispatch]);
 
   return (
@@ -73,21 +78,28 @@ const AdminSubUnit = () => {
             <div className="nirsal__InputFlex">
               <Input
                 title="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 required={true}
               />
-              <Select
-                title="Role"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
+              <Input
+                title="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required={true}
-                data={roles}
-                filter="title"
+                type="email"
+              />
+              <Select
+                title="user"
+                value={head}
+                onChange={(e) => setHead(e.target.value)}
+                required={true}
+                data={users}
+                filter="fullname"
                 filterValue="_id"
               />
               <Button
-                title="Add Role"
+                title="Add Subunit"
                 Icon={BsPlusCircleDotted}
                 disabled={loading}
                 loading={loading}

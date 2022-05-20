@@ -15,7 +15,7 @@ const Navigation = () => {
     // user state
     const userProfile = useSelector((state) => state.userProfile)
     const { user = {} } = userProfile
-    const role = "hop"
+    const role = "admin"
 
     console.log(user)
     useEffect(() => {

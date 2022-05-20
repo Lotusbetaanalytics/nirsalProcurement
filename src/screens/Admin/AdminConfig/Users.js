@@ -39,7 +39,7 @@ const AdminUsers = () => {
   // Submit form
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(addUser(email));
+    dispatch(addUser(email, role));
   };
   if (success) {
     toast({

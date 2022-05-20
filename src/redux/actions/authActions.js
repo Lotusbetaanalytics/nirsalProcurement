@@ -8,6 +8,7 @@ import {
   USER_PROFILE_REQUEST,
   USER_PROFILE_SUCCESS,
 } from "../constants/authConstants";
+import { BASE_URL } from "../config";
 
 export const auth = (accessToken) => async (dispatch, getState) => {
   try {
@@ -19,7 +20,11 @@ export const auth = (accessToken) => async (dispatch, getState) => {
         "Access-Control-Allow-Origin": "*",
       },
     };
-    const { data } = await axios.post(`/api/v1/auth`, { accessToken }, config);
+    const { data } = await axios.post(
+      `${BASE_URL}/api/v1/auth`,
+      { accessToken },
+      config
+    );
     dispatch({
       type: USER_AUTH_SUCCESS,
       payload: data,
@@ -50,7 +55,7 @@ export const getMe = () => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const { data } = await axios.get(`/api/v1/auth`, config);
+    const { data } = await axios.get(`${BASE_URL}/api/v1/auth`, config);
     dispatch({
       type: USER_PROFILE_SUCCESS,
       payload: data,

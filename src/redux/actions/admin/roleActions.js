@@ -13,8 +13,9 @@ import {
   DELETE_ROLES_REQUEST,
   DELETE_ROLES_SUCCESS,
 } from "../../constants/admin/rolesConstants";
+import { BASE_URL } from "../../config";
 
-export const addRole = (name) => async (dispatch, getState) => {
+export const addRole = (title) => async (dispatch, getState) => {
   try {
     dispatch({ type: CREATE_ROLES_REQUEST });
 
@@ -29,7 +30,11 @@ export const addRole = (name) => async (dispatch, getState) => {
         // Authorization: `Bearer ${adminInfo.jwtToken}`,
       },
     };
-    const { data } = await axios.post(`/api/v1/role`, { name }, config);
+    const { data } = await axios.post(
+      `${BASE_URL}/api/v1/role`,
+      { title },
+      config
+    );
     dispatch({
       type: CREATE_ROLES_SUCCESS,
       payload: data,
@@ -60,7 +65,7 @@ export const fetchRoles = () => async (dispatch, getState) => {
         // Authorization: `Bearer ${adminInfo.jwtToken}`,
       },
     };
-    const { data } = await axios.get(`/api/v1/role`, config);
+    const { data } = await axios.get(`${BASE_URL}/api/v1/role`, config);
     dispatch({
       type: GET_ROLES_SUCCESS,
       payload: data,
@@ -91,7 +96,11 @@ export const patchRole = (id) => async (dispatch, getState) => {
         // Authorization: `Bearer ${adminInfo.jwtToken}`,
       },
     };
-    const { data } = await axios.patch(`/api/v1/role/${id}`, {}, config);
+    const { data } = await axios.patch(
+      `${BASE_URL}/api/v1/role/${id}`,
+      {},
+      config
+    );
     dispatch({
       type: UPDATE_ROLES_SUCCESS,
       payload: data,
@@ -122,7 +131,10 @@ export const removeRole = (id) => async (dispatch, getState) => {
         // Authorization: `Bearer ${adminInfo.jwtToken}`,
       },
     };
-    const { data } = await axios.delete(`/api/v1/role/${id}`, config);
+    const { data } = await axios.delete(
+      `${BASE_URL}/api/v1/role/${id}`,
+      config
+    );
     dispatch({
       type: DELETE_ROLES_SUCCESS,
       payload: data,

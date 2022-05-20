@@ -2,11 +2,11 @@ import { FaThLarge, FaCog, FaFolder, FaBriefcase } from "react-icons/fa";
 const Helpers = {
   url: {
     admin: [
-      {
-        name: "Dashboard",
-        path: "/app/dashboard",
-        Icon: FaThLarge,
-      },
+      // {
+      //   name: "Dashboard",
+      //   path: "/app/dashboard",
+      //   Icon: FaThLarge,
+      // },
       {
         name: "Configurations",
         path: "/app/config",

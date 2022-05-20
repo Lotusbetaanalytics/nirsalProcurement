@@ -28,12 +28,12 @@ const AdminConfig = () => {
   ];
 
   // Form State
-  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
 
   // Submit form
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(addRole(name));
+    dispatch(addRole(title));
   };
   if (success) {
     toast({
@@ -67,8 +67,8 @@ const AdminConfig = () => {
             <div className="nirsal__InputFlex">
               <Input
                 title="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 required={true}
               />
               <Button

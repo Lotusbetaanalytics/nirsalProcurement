@@ -7,7 +7,16 @@ import {
   getRoleReducer,
   updateRoleReducer,
 } from "./reducers/admin/rolesReducers";
-import { createUserReducer } from "./reducers/admin/userReducers";
+import {
+  createSubunitReducer,
+  deleteSubunitReducer,
+  getSubunitReducer,
+  updateSubunitReducer,
+} from "./reducers/admin/subUnitReducers";
+import {
+  createUserReducer,
+  getUserReducer,
+} from "./reducers/admin/userReducers";
 import { authReducer, profileReducer } from "./reducers/authReducers";
 
 const reducer = combineReducers({
@@ -17,7 +26,12 @@ const reducer = combineReducers({
   getRole: getRoleReducer,
   updateRole: updateRoleReducer,
   deleteRole: deleteRoleReducer,
+  createSubUnit: createSubunitReducer,
+  getSubUnit: getSubunitReducer,
+  updateSubUnit: updateSubunitReducer,
+  deleteSubUnit: deleteSubunitReducer,
   createUser: createUserReducer,
+  getUser: getUserReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
