@@ -125,8 +125,12 @@ const TerminatedProjects = () => {
                 headerStyle: {
                   backgroundColor: "none",
                   color: "black",
+                  fontSize: "14px",
                   padding: "10px",
                   borderBottom: "1px solid rgba(196, 196, 196, 0.32)",
+                },
+                rowStyle: {
+                  fontSize: "13px",
                 },
               }}
               style={{
@@ -147,7 +151,8 @@ const TerminatedProjects = () => {
                   tooltip: "View all",
 
                   onClick: (event, rowData) => {
-                    navigate(`/totalproject/view/${rowData.ID}`);
+                    console.log(rowData);
+                    navigate(`/totalproject/view/${rowData._id}`);
                   },
                 },
               ]}
@@ -155,7 +160,7 @@ const TerminatedProjects = () => {
                 Action: (props) => (
                   <button
                     onClick={(event) => props.action.onClick(event, props.data)}
-                    className=""
+                    className="btn__table btn__assign"
                   >
                     <span>{props.action.tooltip}</span>
                   </button>

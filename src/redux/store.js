@@ -9,6 +9,7 @@ import {
 } from "./reducers/admin/rolesReducers";
 import { createUserReducer } from "./reducers/admin/userReducers";
 import { authReducer, profileReducer } from "./reducers/authReducers";
+import { projectReducer } from "./reducers/hop/projectReducer";
 
 const reducer = combineReducers({
   userLogin: authReducer,
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   updateRole: updateRoleReducer,
   deleteRole: deleteRoleReducer,
   createUser: createUserReducer,
+  getProject: projectReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

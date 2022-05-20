@@ -132,7 +132,7 @@ const TotalProjects = () => {
                   borderBottom: "1px solid rgba(196, 196, 196, 0.32)",
                 },
                 rowStyle: {
-                  fontSize: "12px",
+                  fontSize: "13px",
                 },
               }}
               style={{

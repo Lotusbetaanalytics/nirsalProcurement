@@ -33,6 +33,8 @@ import {
   assignProject,
   getTotalProjects,
 } from "../ProjectApiCalls";
+import { useDispatch, useSelector } from "react-redux";
+import { getSingleProject } from "../../../../redux/actions/hop/projectActions";
 
 const NewProjects = () => {
   const [data, setData] = React.useState([]);
@@ -230,20 +232,32 @@ const NewProjects = () => {
 export default NewProjects;
 
 export const ConfirmProject = ({ id, handleClose }) => {
-  const [data, setData] = React.useState([]);
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [projectName, setProjectName] = React.useState("");
-  const [vendorName, setVendorName] = React.useState("");
-  const [projectTitle, setProjectTitle] = React.useState("");
-  const [projectDeskOfficer, setProjectDeskOfficer] = React.useState("");
-  const [uploadedDocuments, setUploadedDocuments] = React.useState([]);
+  const [data, setData] = React.useState({
+    projectName: "",
+    name: "",
+    email: "",
+    vendorName: "",
+    projectTitle: "",
+    files: [],
+    projectDeskOfficer: "",
+    frontDeskOfficer: "",
+  });
   const [loading, setLoading] = React.useState(false);
   const [findingData, setFindingData] = React.useState(false);
+  const dispatch = useDispatch();
+
+  const { success, project } = useSelector((state) => state.getProject);
+
+  React.useEffect(() => {
+    if (success) {
+      setData(project);
+    }
+  }, [success, project]);
 
   React.useEffect(() => {
     setFindingData(true);
-  }, []);
+    dispatch(getSingleProject(id));
+  }, [id, dispatch]);
 
   const onConfirmHandler = (e) => {
     e.preventDefault();
@@ -256,30 +270,64 @@ export const ConfirmProject = ({ id, handleClose }) => {
       <form onSubmit={onConfirmHandler} className="projectForm">
         <div>
           <label>Name</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={data.name}
+            onChange={(e) => (data.name = e.target.value)}
+            readOnly
+          />
         </div>
         <div>
           <label>Email</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={data.email}
+            onChange={(e) => (data.name = e.target.value)}
+            readOnly
+          />
         </div>
         <div>
           <label>Project Name</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={data.projectName}
+            onChange={(e) => (data.name = e.target.value)}
+            readOnly
+          />
         </div>
         <div>
           <label>vendor Name</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={data.vendorName}
+            onChange={(e) => (data.name = e.target.value)}
+            readOnly
+          />
         </div>
         <div>
           <label>Project Title</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={data.projectTitle}
+            onChange={(e) => (data.name = e.target.value)}
+            readOnly
+          />
         </div>
         <div>
           <label>Project Desk Officer</label>
-          <input type="text" />
+          <input
+            type="text"
+            onChange={(e) => (data.name = e.target.value)}
+            value={
+              (data.projectDeskOfficer && data.projectDeskOfficer["email"]) ||
+              ""
+            }
+            readOnly
+          />
         </div>
         <div>
           <label>Uploaded Documents</label>
+          <div>{data.files.map((doc) => JSON.stringify(doc))}</div>
         </div>
         <div></div>
         <div></div>
@@ -293,25 +341,86 @@ export const ConfirmProject = ({ id, handleClose }) => {
   );
 };
 export const AssignProject = ({ id, handleClose }) => {
-  const [data, setData] = React.useState([]);
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [projectName, setProjectName] = React.useState("");
-  const [vendorName, setVendorName] = React.useState("");
-  const [projectTitle, setProjectTitle] = React.useState("");
-  const [projectDeskOfficer, setProjectDeskOfficer] = React.useState("");
-  const [uploadedDocuments, setUploadedDocuments] = React.useState([]);
+  const [data, setData] = React.useState({
+    projectName: "",
+    name: "",
+    email: "",
+    vendorName: "",
+    projectTitle: "",
+    files: [],
+    projectDeskOfficer: {},
+    frontDeskOfficer: "",
+  });
+  const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
   const [findingData, setFindingData] = React.useState(false);
+  const [projectTitle, setProjectTitle] = React.useState("");
+  const [projectDeskOfficer, setProjectDeskOfficer] = React.useState("");
+  const [frontDeskOfficer, setFrontDeskOfficer] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [vendorName, setVendorName] = React.useState("");
+  const [files, setFiles] = React.useState([]);
+  const [projectName, setProjectName] = React.useState("");
+
+  const [open, setOpen] = React.useState(false);
+
+  const { success, project } = useSelector((state) => state.getProject);
+
+  React.useEffect(() => {
+    if (success) {
+      console.log(project);
+      setName(project.name);
+      setEmail(project.email);
+      setVendorName(project.vendorName);
+      setProjectTitle(project.projectTitle);
+      setProjectDeskOfficer(
+        project.projectDeskOfficer &&
+          (project.projectDeskOfficer["email"] || "")
+      );
+      setFrontDeskOfficer(project.frontDeskOfficer["email"]);
+      setFiles(project.files);
+    }
+  }, [success, project]);
 
   React.useEffect(() => {
     setFindingData(true);
-  }, []);
+    dispatch(getSingleProject(id));
+  }, [id, dispatch]);
 
   const onAssignHandler = (event) => {
     event.preventDefault();
     setLoading(true);
-    assignProject(id, setLoading, handleClose, data);
+    assignProject(id, setLoading, handleClose);
+  };
+
+  const openModal = () => {
+    setOpen(true);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+  };
+
+  const Content = (staff) => {
+    return (
+      <div className="permissionPrompt">
+        <div>
+          Are you sure you want to assign this project to <br />
+          <strong>{staff}</strong>?
+        </div>
+        <div className="promptButton">
+          <button onClick={onAssignHandler}>Yes</button>
+          <button
+            onClick={() => {
+              closeModal();
+            }}
+          >
+            No
+          </button>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -319,39 +428,78 @@ export const AssignProject = ({ id, handleClose }) => {
       <form onSubmit={onAssignHandler} className="projectForm">
         <div>
           <label>Name</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            readOnly
+          />
         </div>
         <div>
           <label>Email</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            readOnly
+          />
         </div>
         <div>
           <label>Project Name</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={projectName}
+            onChange={(e) => setProjectName(e.target.value)}
+            readOnly
+          />
         </div>
         <div>
           <label>vendor Name</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={vendorName}
+            onChange={(e) => setVendorName(e.target.value)}
+            readOnly
+          />
         </div>
         <div>
           <label>Project Title</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={projectTitle}
+            onChange={(e) => setProjectTitle(e.target.value)}
+            readOnly
+          />
         </div>
         <div>
           <label>Project Desk Officer</label>
-          <input type="text" />
+          <input
+            type="text"
+            onChange={(e) => setProjectDeskOfficer(e.target.value)}
+            value={projectDeskOfficer}
+            readOnly
+          />
         </div>
         <div>
           <label>Uploaded Documents</label>
+          <div>{files.map((doc) => JSON.stringify(doc))}</div>
         </div>
         <div></div>
         <div></div>
         <div className="btn__left">
-          <button type="submit" className="btn__table btn__assign ">
+          <button
+            type="submit"
+            className="btn__table btn__assign "
+            onClick={(e) => {
+              e.preventDefault();
+              openModal();
+            }}
+          >
             Assign
           </button>
         </div>
       </form>
+      <Modal isVisible={open} onClose={closeModal} content={Content(name)} />
     </div>
   );
 };

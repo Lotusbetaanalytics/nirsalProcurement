@@ -20,6 +20,28 @@ export const getTotalProjects = (setLoading, setData) => {
       setLoading(false);
     });
 };
+//get a single project
+export const getSingleProject = (id, setLoading, setData, ...rest) => {
+  console.log(rest);
+  return axios
+    .get(`/api/v1/projectInitiation/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("userInfo")).token
+        }`,
+      },
+    })
+    .then(({ data }) => {
+      console.log(data.data);
+      setData(data.data);
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.log(error);
+      setLoading(false);
+    });
+};
 
 export const assignProject = (id, setLoading, setData, handleClose) => {
   return axios

@@ -11,6 +11,7 @@ const TabNavigation = ({ tabs, active }) => {
         return (
           <div
             className={`${tab.active && `active`}    tab__btn`}
+            key={tab.id}
             onClick={() => {
               navigate(tab.path);
               tabs.filter(({ id }) => {

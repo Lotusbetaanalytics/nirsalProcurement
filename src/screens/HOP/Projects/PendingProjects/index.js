@@ -54,15 +54,12 @@ const PendingProjects = () => {
     getTotalProjects(setFindingData, setData);
   }, []);
 
-  console.log(data);
-
   const columns = [
-    { title: "SN", field: "name", type: "string" },
-    { title: "Name", field: "email", type: "string" },
-    { title: "Email", field: "alias", type: "string" },
-    { title: "Project Title", field: "division", type: "string" },
-    { title: "Contract Type", field: "AvatarGroup", type: "string" },
-    { title: "Project Desk Officer", field: "EXApprovalStatus" },
+    { title: "Name", field: "name", type: "string" },
+    { title: "Email", field: "email", type: "string" },
+    { title: "Project Title", field: "projectTtitle", type: "string" },
+    { title: "Contract Type", field: "contractType", type: "string" },
+    { title: "Project Desk Officer", field: "projectDeskOfficer" },
     { title: "Front Desk Officer", field: "EXApprovalStatus" },
   ];
 
@@ -165,7 +162,7 @@ const PendingProjects = () => {
                   tooltip: "Assign to",
 
                   onClick: (event, rowData) => {
-                    handleAssign(rowData.id);
+                    handleAssign(rowData._id);
                   },
                 },
               ]}
