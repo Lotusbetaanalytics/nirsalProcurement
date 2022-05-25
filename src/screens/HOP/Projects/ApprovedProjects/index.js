@@ -1,29 +1,16 @@
 import React from "react";
-import { forwardRef } from "react";
-import {
-  AddBox,
-  ArrowDownward,
-  Check,
-  ChevronLeft,
-  ChevronRight,
-  Clear,
-  DeleteOutline,
-  Edit,
-  FilterList,
-  FirstPage,
-  LastPage,
-  Remove,
-  SaveAlt,
-  Search,
-  ViewColumn,
-} from "@material-ui/icons";
 import MaterialTable from "material-table";
-import { Navigation, PageTitle, TabNavigation } from "../../../../components";
+import {
+  Navigation,
+  PageTitle,
+  tableIcons,
+  TabNavigation,
+} from "../../../../components";
 import { Tabs } from "../../../../components/TabNavigation";
 import "./approvedProjects.css";
 import "../projects.css";
 import { useNavigate } from "react-router-dom";
-import { getTotalProjects } from "../ProjectApiCalls";
+import { getApprovedProjects } from "../ProjectApiCalls";
 
 const ApprovedProjects = () => {
   const [data, setData] = React.useState([]);
@@ -33,7 +20,7 @@ const ApprovedProjects = () => {
 
   React.useEffect(() => {
     setFindingData(true);
-    getTotalProjects(setFindingData, setData);
+    getApprovedProjects(setFindingData, setData);
   }, []);
 
   console.log(data);
@@ -44,8 +31,8 @@ const ApprovedProjects = () => {
     { title: "Email", field: "alias", type: "string" },
     { title: "Project Title", field: "division", type: "string" },
     { title: "Contract Type", field: "AvatarGroup", type: "string" },
-    { title: "Project Desk Officer", field: "EXApprovalStatus" },
-    { title: "Front Desk Officer", field: "EXApprovalStatus" },
+    { title: "PDO", field: "EXApprovalStatus" },
+    { title: "FDO", field: "EXApprovalStatus" },
   ];
 
   return (
@@ -61,58 +48,8 @@ const ApprovedProjects = () => {
             <div className="loading__indicator">Getting...</div>
           ) : (
             <MaterialTable
-              icons={{
-                Add: forwardRef((props, ref) => (
-                  <AddBox {...props} ref={ref} />
-                )),
-                Check: forwardRef((props, ref) => (
-                  <Check {...props} ref={ref} />
-                )),
-                Clear: forwardRef((props, ref) => (
-                  <Clear {...props} ref={ref} />
-                )),
-                Delete: forwardRef((props, ref) => (
-                  <DeleteOutline {...props} ref={ref} />
-                )),
-                DetailPanel: forwardRef((props, ref) => (
-                  <ChevronRight {...props} ref={ref} />
-                )),
-                Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
-                Export: forwardRef((props, ref) => (
-                  <SaveAlt {...props} ref={ref} />
-                )),
-                Filter: forwardRef((props, ref) => (
-                  <FilterList {...props} ref={ref} />
-                )),
-                FirstPage: forwardRef((props, ref) => (
-                  <FirstPage {...props} ref={ref} />
-                )),
-                LastPage: forwardRef((props, ref) => (
-                  <LastPage {...props} ref={ref} />
-                )),
-                NextPage: forwardRef((props, ref) => (
-                  <ChevronRight {...props} ref={ref} />
-                )),
-                PreviousPage: forwardRef((props, ref) => (
-                  <ChevronLeft {...props} ref={ref} />
-                )),
-                ResetSearch: forwardRef((props, ref) => (
-                  <Clear {...props} ref={ref} />
-                )),
-                Search: forwardRef((props, ref) => (
-                  <Search {...props} ref={ref} />
-                )),
-                SortArrow: forwardRef((props, ref) => (
-                  <ArrowDownward {...props} ref={ref} />
-                )),
-                ThirdStateCheck: forwardRef((props, ref) => (
-                  <Remove {...props} ref={ref} />
-                )),
-                ViewColumn: forwardRef((props, ref) => (
-                  <ViewColumn {...props} ref={ref} />
-                )),
-              }}
-              title={`Total Projects: ${data.length}`}
+              icons={tableIcons}
+              title={`Approved Projects: ${data.length}`}
               columns={columns}
               data={data}
               options={{
@@ -125,8 +62,12 @@ const ApprovedProjects = () => {
                 headerStyle: {
                   backgroundColor: "none",
                   color: "black",
+                  fontSize: "14px",
                   padding: "10px",
                   borderBottom: "1px solid rgba(196, 196, 196, 0.32)",
+                },
+                rowStyle: {
+                  fontSize: "13px",
                 },
               }}
               style={{
@@ -155,7 +96,7 @@ const ApprovedProjects = () => {
                 Action: (props) => (
                   <button
                     onClick={(event) => props.action.onClick(event, props.data)}
-                    className=""
+                    className="btn__table btn__assign"
                   >
                     <span>{props.action.tooltip}</span>
                   </button>

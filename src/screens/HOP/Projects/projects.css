@@ -45,6 +45,37 @@
   background: #6b9109;
 }
 
+.btn__container {
+  width: 330px;
+  height: 150px;
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  align-items: center;
+}
+.btn__container span {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  height: 50px;
+  border: 1px solid #3b5202;
+  background: #fff;
+  border-radius: 10px;
+  color: #3b5202;
+  cursor: pointer;
+}
+.btn__container button {
+  align-items: center;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  height: 50px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 .projectForm {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -60,6 +91,14 @@
   gap: 5px;
 }
 .projectForm input[type="text"] {
+  width: 330px;
+  height: 62px;
+  border: 1px solid rgba(0, 0, 0, 0.41);
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px;
+}
+.projectForm select {
   width: 330px;
   height: 62px;
   border: 1px solid rgba(0, 0, 0, 0.41);

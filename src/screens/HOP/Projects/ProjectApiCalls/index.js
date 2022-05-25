@@ -12,7 +12,70 @@ export const getTotalProjects = (setLoading, setData) => {
       },
     })
     .then(({ data }) => {
-      setData(data.data);
+      setData(data.data.filter((item) => item.status === "Approved"));
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.log(error);
+      setLoading(false);
+    });
+};
+//get all pending projects
+export const getPendingProjects = (setLoading, setData) => {
+  return axios
+    .get(`/api/v1/projectInitiation`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("userInfo")).token
+        }`,
+      },
+    })
+    .then(({ data }) => {
+      // eslint-disable-next-line eqeqeq
+      setData(data.data.filter(({ status }) => status == "Pending"));
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.log(error);
+      setLoading(false);
+    });
+};
+//get all closed projects
+export const getClosedProjects = (setLoading, setData) => {
+  return axios
+    .get(`/api/v1/projectInitiation`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("userInfo")).token
+        }`,
+      },
+    })
+    .then(({ data }) => {
+      // eslint-disable-next-line eqeqeq
+      setData(data.data.filter(({ status }) => status == "Closed"));
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.log(error);
+      setLoading(false);
+    });
+};
+//get all approved projects
+export const getApprovedProjects = (setLoading, setData) => {
+  return axios
+    .get(`/api/v1/projectInitiation`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("userInfo")).token
+        }`,
+      },
+    })
+    .then(({ data }) => {
+      // eslint-disable-next-line eqeqeq
+      setData(data.data.filter(({ isApproved }) => isApproved == true));
       setLoading(false);
     })
     .catch((error) => {

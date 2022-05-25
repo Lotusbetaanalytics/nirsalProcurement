@@ -1,34 +1,17 @@
 import React from "react";
-import { forwardRef } from "react";
-import {
-  AddBox,
-  ArrowDownward,
-  Check,
-  ChevronLeft,
-  ChevronRight,
-  Clear,
-  DeleteOutline,
-  Edit,
-  FilterList,
-  FirstPage,
-  LastPage,
-  Remove,
-  SaveAlt,
-  Search,
-  ViewColumn,
-} from "@material-ui/icons";
 import MaterialTable from "material-table";
 import {
   Modal,
   Navigation,
   PageTitle,
+  tableIcons,
   TabNavigation,
 } from "../../../../components";
 import { Tabs } from "../../../../components/TabNavigation";
 import "./pendingProjects.css";
 import "../projects.css";
-import { getTotalProjects } from "../ProjectApiCalls";
-import { AssignProject } from "../NewProjects";
+import { getPendingProjects } from "../ProjectApiCalls";
+import { AssignProject } from "../helpers/hopHelpers";
 
 const PendingProjects = () => {
   const [data, setData] = React.useState([]);
@@ -51,7 +34,7 @@ const PendingProjects = () => {
 
   React.useEffect(() => {
     setFindingData(true);
-    getTotalProjects(setFindingData, setData);
+    getPendingProjects(setFindingData, setData);
   }, []);
 
   const columns = [
@@ -59,8 +42,7 @@ const PendingProjects = () => {
     { title: "Email", field: "email", type: "string" },
     { title: "Project Title", field: "projectTtitle", type: "string" },
     { title: "Contract Type", field: "contractType", type: "string" },
-    { title: "Project Desk Officer", field: "projectDeskOfficer" },
-    { title: "Front Desk Officer", field: "EXApprovalStatus" },
+    { title: "FDO", field: "EXApprovalStatus" },
   ];
 
   return (
@@ -76,57 +58,7 @@ const PendingProjects = () => {
             <div className="loading__indicator">Getting...</div>
           ) : (
             <MaterialTable
-              icons={{
-                Add: forwardRef((props, ref) => (
-                  <AddBox {...props} ref={ref} />
-                )),
-                Check: forwardRef((props, ref) => (
-                  <Check {...props} ref={ref} />
-                )),
-                Clear: forwardRef((props, ref) => (
-                  <Clear {...props} ref={ref} />
-                )),
-                Delete: forwardRef((props, ref) => (
-                  <DeleteOutline {...props} ref={ref} />
-                )),
-                DetailPanel: forwardRef((props, ref) => (
-                  <ChevronRight {...props} ref={ref} />
-                )),
-                Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
-                Export: forwardRef((props, ref) => (
-                  <SaveAlt {...props} ref={ref} />
-                )),
-                Filter: forwardRef((props, ref) => (
-                  <FilterList {...props} ref={ref} />
-                )),
-                FirstPage: forwardRef((props, ref) => (
-                  <FirstPage {...props} ref={ref} />
-                )),
-                LastPage: forwardRef((props, ref) => (
-                  <LastPage {...props} ref={ref} />
-                )),
-                NextPage: forwardRef((props, ref) => (
-                  <ChevronRight {...props} ref={ref} />
-                )),
-                PreviousPage: forwardRef((props, ref) => (
-                  <ChevronLeft {...props} ref={ref} />
-                )),
-                ResetSearch: forwardRef((props, ref) => (
-                  <Clear {...props} ref={ref} />
-                )),
-                Search: forwardRef((props, ref) => (
-                  <Search {...props} ref={ref} />
-                )),
-                SortArrow: forwardRef((props, ref) => (
-                  <ArrowDownward {...props} ref={ref} />
-                )),
-                ThirdStateCheck: forwardRef((props, ref) => (
-                  <Remove {...props} ref={ref} />
-                )),
-                ViewColumn: forwardRef((props, ref) => (
-                  <ViewColumn {...props} ref={ref} />
-                )),
-              }}
+              icons={tableIcons}
               title={`Pending Projects: ${data.length}`}
               columns={columns}
               data={data}
@@ -140,8 +72,12 @@ const PendingProjects = () => {
                 headerStyle: {
                   backgroundColor: "none",
                   color: "black",
+                  fontSize: "14px",
                   padding: "10px",
                   borderBottom: "1px solid rgba(196, 196, 196, 0.32)",
+                },
+                rowStyle: {
+                  fontSize: "13px",
                 },
               }}
               style={{

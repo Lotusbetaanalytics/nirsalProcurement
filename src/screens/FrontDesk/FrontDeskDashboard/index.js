@@ -1,21 +1,27 @@
-import React,{ useEffect } from "react";
+import React, { useEffect } from "react";
 import { Cards, Navigation, PageTitle } from "../../../components";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getMe } from "../../../redux/actions/authActions";
-import { frontDeskConfirmedProject, frontDeskPendingProject } from "../../../redux/actions/FrontDesk/frontDeskProjectActions";
+import {
+  frontDeskConfirmedProject,
+  frontDeskPendingProject,
+} from "../../../redux/actions/FrontDesk/frontDeskProjectActions";
 // import FrontDeskPendingProject from "../Projects/PendingProjects";
 
 const FrontDeskDashboard = () => {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch;
-
-
-const getFrontDeskPendingProject = useSelector((state) => state.getFrontDeskPendingProject);
+  const getFrontDeskPendingProject = useSelector(
+    (state) => state.getFrontDeskPendingProject
+  );
   const { loading, error, data } = getFrontDeskPendingProject;
-  console.log(data)
+  console.log(data);
 
- 
+  useEffect(() => {
+    dispatch(frontDeskPendingProject());
+  }, [dispatch]);
+
   return (
     <div className="appContainer">
       <Navigation />

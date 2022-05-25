@@ -10,3 +10,4 @@ export { default as Textarea } from "./Forms/Textarea";
 export { default as Button } from "./Forms/Button";
 export { default as Modal } from "./Modal";
 export { default as TabNavigation } from "./TabNavigation";
+export { default as tableIcons } from "./tableIcons/tableIcons";
