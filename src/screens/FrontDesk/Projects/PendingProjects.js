@@ -1,36 +1,67 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   MenuBar,
   Navigation,
   PageTitle,
 } from "../../../components";
-import MaterialTable from "material-table"
+import styles from "./styles.module.css"
+
+
 import { useSelector, useDispatch } from "react-redux";
-import { useToast } from "@chakra-ui/react";
+
 import { frontDeskPendingProject } from "../../../redux/actions/FrontDesk/frontDeskProjectActions";
-// import data from "../../../redux/data";
+import MaterialTable from "material-table";
+
 
 const FrontDeskPendingProject = () => {
   // Helpers
   const dispatch = useDispatch();
-  const toast = useToast();
-  const  [tableData,setTableData] = useState([]);
 
-  const getFrontDeskPendingProject = useSelector((state) => state.getFrontDeskPendingProject);
-  const { loading, error, data } = getFrontDeskPendingProject;
-  console.log(data)
+  const [id, setId] = React.useState("");
+  
+
+  const handleAssign = (_id) => {
+    setId(id);
+    
+  };
 
   useEffect(()=>{
     dispatch(frontDeskPendingProject())
-    if (data){
-      setTableData(data)
-    }
     
-},[tableData,dispatch])
-
-console.log(tableData)
-
+  },[dispatch])
  
+
+  const getFrontDeskPendingProject = useSelector((state) => state.getFrontDeskPendingProject);
+  const { loading, pendingProject= [] } = getFrontDeskPendingProject;
+
+const columns=[
+  {
+    title: "Employee Name",
+    field: "name",
+    type:"string"
+  },
+  {
+    title: "Employee Email",
+    field: "email",
+    type:"string"
+  },
+  {
+    title: "Project Title",
+    field: "projectTitle",
+    type:"string"
+  },
+  {
+    title: "Vendor Name",
+    field: "vendorName",
+    type:"string"
+  },
+  {
+    title: "Head of Procurement",
+    field: "headOfProcurement.fullname",
+    type:"string"
+  },
+  
+]
 
   // Menubar Items
   const menu = [
@@ -49,44 +80,21 @@ console.log(tableData)
         <MenuBar menu={menu} />
         {loading ? (
           <h1>Loading...</h1>
-        ) : data? (<MaterialTable
-          columns={[
-            { title: "SN", field: "tableData.id", render:rowData => rowData.tableData.id+1},
-            { title: "Employee Name", field: "employeeName" },
-            
-            {
-              title: "Employee Email",
-              field: "employeeEmail",
-              align:"center"
-            },
-            {
-              title: "Project Title",
-              field: "projectTitle",
-              align:"center"
-            },
-            {
-              title: "Vendor Name",
-              field: "vendorName",
-              align:"center"
-            },
-            {
-              title: "Head of Procurement",
-              field: "headOfProcurement",
-              align:"center"
-            },
-            
-          ]}
-          data={tableData}
-          title="Pending Projects"
+        ) : (<div className={styles.material}><MaterialTable
+         
+          columns={columns}
+          data={pendingProject}
+          title={`Pending Projects: ${pendingProject.length}`}
           options={{
-            exportButton: true,
             headerStyle: {
-              backgroundColor: "#6B9109",
-              color: "white",
+              
               fontSize: 14,
               borderBottom: "1px solid rgba(196, 196, 196, 0.32)",
             },
-           
+            actionsCellStyle: {
+              color: "#FF00dd",
+            },
+            actionsColumnIndex: -1,
           }}
           
           style={{
@@ -98,22 +106,32 @@ console.log(tableData)
             
             margin: "0 0",
           }}
+          actions={[
+            {
+              icon: "visibility",
+              iconProps: {
+                style: { fontSize: "20px", color: "gold" },
+              },
+              tooltip: "select",
+
+              onClick: (event, rowData) => {
+                 handleAssign(rowData._id);
+              },
+            },
+          ]}
+          components={{
+            Action: (props) => (
+              <button
+                onClick={(event) => props.action.onClick(event, props.data)}
+                // className="btn__table btn__assign"
+              >
+                {props.action.tooltip}
+              </button>
+            ),
+          }}
           
         />
-          ) : (
-            <div className="pageContents">
-            <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-              <div style={{borderRadius:"50%",
-              height:"300px",
-              width:"300px", 
-              border: "10px solid rgba(196,196,196,0.32)",
-               display:"flex",
-               fontSize:"12px",
-               justifyContent:"center",
-               alignItems:"center",textAlign:"center",backgroundColor:"#C4C4C4"}}>There are no Pending Projects</div>
-              </div>
-          </div>
-        )}
+          </div>) }
       </div>
     </div>
   );
