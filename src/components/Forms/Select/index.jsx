@@ -60,6 +60,7 @@ export const SelectInput = ({
   data,
   readOnly = false,
   required = false,
+  show = "",
   size = "medium",
 }) => {
   return (
@@ -77,7 +78,7 @@ export const SelectInput = ({
         {data &&
           data.map((item, i) => (
             <option value={item._id} key={i}>
-              {item.email}
+              {item[show]}
             </option>
           ))}
       </select>

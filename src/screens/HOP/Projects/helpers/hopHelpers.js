@@ -10,7 +10,6 @@ import { getAllTeams } from "../../../../redux/actions/team/teamAction";
 
 //  @desc     Confirm Project
 //  @props    projectId, handleClose
-
 export const ConfirmProject = ({ id, handleClose }) => {
   const [data, setData] = React.useState({
     projectName: "",
@@ -118,7 +117,6 @@ export const ConfirmProject = ({ id, handleClose }) => {
 
 //  @desc     HOP assign Project to a team
 //  @props    projectId, handleClose
-
 export const AssignProject = ({ id, handleClose }) => {
   const [data, setData] = React.useState({
     projectName: "",
@@ -165,6 +163,7 @@ export const AssignProject = ({ id, handleClose }) => {
   }, [getTeamRequest.success, getTeamRequest.data]);
 
   console.log(teams, team, ">>>>>>>");
+  console.log(listOfPDO, ">oo>>>>>>");
 
   React.useEffect(() => {
     if (success) {
@@ -288,6 +287,7 @@ export const AssignProject = ({ id, handleClose }) => {
             data={teams}
             value={team}
             title="Team"
+            show="title"
             onChange={(e) => setTeam(e.target.value)}
           />
         </div>
@@ -297,6 +297,7 @@ export const AssignProject = ({ id, handleClose }) => {
             data={listOfPDO}
             value={pdo}
             title="Officer"
+            show="email"
             onChange={(e) => setPdo(e.target.value)}
           />
         </div>
