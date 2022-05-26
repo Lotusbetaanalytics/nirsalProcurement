@@ -17,8 +17,11 @@ import {
 } from "./reducers/HopReducer/getProjectUserReducer";
 import {
   getAllProjectReducer,
+  getApprovedProjectReducer,
+  getClosedProjectReducer,
   getNewProjectReducer,
   getPendingProjectReducer,
+  getTerminatedProjectReducer,
 } from "./reducers/getAllProjectsReducer/getAllProjectReducer";
 
 const reducer = combineReducers({
@@ -35,7 +38,10 @@ const reducer = combineReducers({
   getProjectPerson: getProjectDeskReducer,
   getProjectAll: getAllProjectReducer,
   getProjectNew: getNewProjectReducer,
+  getClosedProject: getClosedProjectReducer,
   getProjectPending: getPendingProjectReducer,
+  getProjectApproved: getApprovedProjectReducer,
+  getTerminated: getTerminatedProjectReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

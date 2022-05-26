@@ -22,8 +22,11 @@ import {
 } from "../../redux/actions/HopAction/getUsersProjectAction";
 import {
   getAllProjects,
+  getApprovedProjects,
+  getClosedProjects,
   getNewProjects,
   getPendingProjects,
+  getTerminatedProjects,
 } from "../../redux/actions/getAllProjectsAction/getAllProjectsAction";
 
 function HopDashboard() {
@@ -44,7 +47,7 @@ function HopDashboard() {
   // const [projectDeskOfficer, setProjectDeskOfficer] = useState("");
   // const [frontDeskOfficer, setFrontDeskOfficer] = useState("");
   const [uploadDocument, setUploadDocument] = useState("");
-  const [Approved, setApporved] = useState("");
+  // const [Approved, setApporved] = useState("");
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -136,7 +139,14 @@ function HopDashboard() {
 
   const getProjectNew = useSelector((state) => state.getProjectNew);
   const { newProject } = getProjectNew;
-  console.log(newProject);
+  console.log(newProject && newProject.length);
+
+  React.useEffect(() => {
+    dispatch(getClosedProjects());
+  }, [dispatch]);
+
+  const getClosedProject = useSelector((state) => state.getClosedProject);
+  const { closedProject } = getClosedProject;
 
   React.useEffect(() => {
     dispatch(getPendingProjects());
@@ -144,7 +154,21 @@ function HopDashboard() {
 
   const getProjectPending = useSelector((state) => state.getProjectPending);
   const { pendingProject } = getProjectPending;
-  console.log(pendingProject && pendingProject.length);
+
+  React.useEffect(() => {
+    dispatch(getApprovedProjects());
+  }, [dispatch]);
+
+  const getProjectApproved = useSelector((state) => state.getProjectApproved);
+  const { approvedProject } = getProjectApproved;
+
+  React.useEffect(() => {
+    dispatch(getTerminatedProjects());
+  }, [dispatch]);
+
+  const getTerminated = useSelector((state) => state.getTerminated);
+  const { terminatedProject } = getTerminated;
+  console.log(terminatedProject);
 
   if (success) {
     toast({
@@ -159,7 +183,7 @@ function HopDashboard() {
   if (error) {
     toast({
       title: "Error",
-      description: error,
+      description: "Error",
       status: "error",
       duration: 4000,
       isClosable: true,
@@ -178,14 +202,26 @@ function HopDashboard() {
               title="Total Number of Projects"
               count={allProject && allProject.length}
             />
-            <Cards title="No of New Projects" count={0} />
+            <Cards
+              title="No of New Projects"
+              count={newProject && newProject.length}
+            />
             <Cards
               title="No of Pending Project"
               count={pendingProject && pendingProject.length}
             />
-            <Cards title="No of Closed Projects" count={30} />
-            <Cards title="No of Approved Projects" count={20} />
-            <Cards title="No of Terminated Projects" count={5} />
+            <Cards
+              title="No of Closed Projects"
+              count={closedProject && closedProject.length}
+            />
+            <Cards
+              title="No of Approved Projects"
+              count={approvedProject && approvedProject.length}
+            />
+            <Cards
+              title="No of Terminated Projects"
+              count={terminatedProject && terminatedProject.length}
+            />
           </div>
           <div className="initiNewProject">
             <button
@@ -210,7 +246,6 @@ function HopDashboard() {
                       title="Name"
                       value={name}
                       // onChange={(e) => setName(e.target.value)}
-                      readOnly={true}
                       required={true}
                     />
                     <Input
@@ -218,7 +253,6 @@ function HopDashboard() {
                       type="email"
                       value={email}
                       // onChange={(e) => setEmail(e.target.value)}
-                      readOnly={true}
                       required={true}
                     />
                     <Input
@@ -239,7 +273,6 @@ function HopDashboard() {
                       type="email"
                       value={projectDeskStaffData}
                       // onChange={(e) => setProjectDeskOfficer(e.target.value)}
-                      readOnly={true}
                       required={true}
                     />
 
@@ -248,13 +281,11 @@ function HopDashboard() {
                       type="email"
                       value={frontDeskStaffData}
                       // onChange={(e) => setFrontDeskOfficer(e.target.value)}
-                      readOnly={true}
                     />
                     <Input
                       title="Procurement Head"
                       type="text"
                       value={procurementHead}
-                      readOnly={true}
                       // onChange={(e) => setProcurementHead(e.target.value)}
                     />
                     <Input
