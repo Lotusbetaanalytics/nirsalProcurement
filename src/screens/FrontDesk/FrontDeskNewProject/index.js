@@ -3,8 +3,7 @@ import {
   Button,
   Input,
   Navigation,
-  PageTitle,
-  Select,
+  PageTitle
 } from "../../../components";
 import { BsPlusCircleDotted } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,8 +21,6 @@ const FrontDeskNewProject = () => {
   const userProfile = useSelector((state) => state.userProfile)
   const { user = {} } = userProfile
 
-  console.log(user)
-
   const createNewProject = useSelector((state) => state.createNewProject);
   const { loading, error, success } = createNewProject;
 
@@ -34,7 +31,6 @@ const FrontDeskNewProject = () => {
 
 const  getHeadofProcurement = useSelector((state) => state.getHeadofProcurement);
   const {data} =  getHeadofProcurement;
-  console.log(data)
 
   // Form State
   const employeeName = user.fullname;
@@ -45,14 +41,13 @@ const  getHeadofProcurement = useSelector((state) => state.getHeadofProcurement)
   const headOfProcurement = data && data._id;
 
   const headOfProcurementName = data && data.fullname
-  console.log(headOfProcurementName)
 
   // Submit form
   const submitHandler = (e) => {
     e.preventDefault();
     
     dispatch(frontdeskInitiateProject(employeeEmail,employeeName,projectTitle,vendorName,headOfProcurement,document));
-    console.log(document)
+    
   };
   if (success) {
     toast({

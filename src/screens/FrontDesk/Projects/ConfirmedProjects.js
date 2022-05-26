@@ -1,4 +1,4 @@
-import React, { useEffect,useState  } from "react";
+import React, { useEffect } from "react";
 import {
   MenuBar,
   Navigation,
@@ -7,7 +7,6 @@ import {
 
 import MaterialTable from "material-table"
 import { useSelector, useDispatch } from "react-redux";
-import { useToast } from "@chakra-ui/react";
 import { frontDeskConfirmedProject } from "../../../redux/actions/FrontDesk/frontDeskProjectActions";
 // import data from "../../../redux/data";
 
@@ -15,20 +14,16 @@ import { frontDeskConfirmedProject } from "../../../redux/actions/FrontDesk/fron
 const FrontDeskConfirmedProject = () => {
   // Helpers
   const dispatch = useDispatch();
-  const toast = useToast();
-  const [tableData, setTableData] = useState([]);
-  
-  
-
-  const getFrontDeskConfirmedProject = useSelector((state) => state.getFrontDeskConfirmedProject);
-  const { loading, data} = getFrontDeskConfirmedProject;
-  console.log(data)
-
   useEffect(()=>{
-      setTableData(data)
-      dispatch(frontDeskConfirmedProject())
-  },[tableData,dispatch])
+    dispatch(frontDeskConfirmedProject())
+},[dispatch])
 
+  
+  const getFrontDeskConfirmedProject = useSelector((state) => state.getFrontDeskConfirmedProject);
+  const { loading, confirmedProject=[]} = getFrontDeskConfirmedProject;
+  console.log(confirmedProject)
+
+  
   // Menubar Items
   const menu = [
     { name: "Confirmed Projects", active: true, url: "/app/frontdesk/confirmedproject" },
@@ -36,7 +31,30 @@ const FrontDeskConfirmedProject = () => {
     { name: "Pending Projects", url: "/app/frontdesk/pendingproject" },
   ];
 
-  
+  const columns=[
+    {
+      title: "Employee Email",
+      field: "email",
+      type:"string"
+    },
+    {
+      title: "Project Title",
+      field: "projectTitle",
+      type:"string"
+    },
+    // {
+    //   title: "Vendor Name",
+    //   field: "vendorName",
+    //   type:"string"
+    // },
+    {
+      title: "Head of Procurement",
+      field: "headOfProcurement.email",
+      type:"string"
+    },
+    
+  ]
+
 
   return (
     <div className="appContainer">
@@ -46,48 +64,10 @@ const FrontDeskConfirmedProject = () => {
         <MenuBar menu={menu} />
         {loading ? (
           <h1>Loading...</h1>
-        ) : data? (
-          <div className="pageContents">
-            <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-              <div style={{borderRadius:"50%",
-              height:"300px",
-              width:"300px", 
-              border: "10px solid rgba(196,196,196,0.32)",
-               display:"flex",
-               fontSize:"12px",
-               justifyContent:"center",
-               alignItems:"center",textAlign:"center",backgroundColor:"#C4C4C4"}}>There are no Confirmed Projects</div>
-              </div>
-          </div>
-          ) : (
+        )  : (
           <MaterialTable
-            columns={[
-              { title: "SN", field: "tableData.id", render:rowData => rowData.tableData.id+1},
-              { title: "Employee Name", field: "employeeName" },
-              
-              {
-                title: "Employee Email",
-                field: "employeeEmail",
-                align:"center"
-              },
-              {
-                title: "Project Title",
-                field: "projectTitle",
-                align:"center"
-              },
-              {
-                title: "Vendor Name",
-                field: "vendorName",
-                align:"center"
-              },
-              {
-                title: "Head of Procurement",
-                field: "headOfProcurement",
-                align:"center"
-              },
-              
-            ]}
-            data={tableData}
+          columns={columns}
+            data={[]}
             title="Confirmed Projects"
             options={{
               exportButton: true,
@@ -111,7 +91,8 @@ const FrontDeskConfirmedProject = () => {
             }}
             
           />
-        )}
+        )
+        }
       </div>
     </div>
   );

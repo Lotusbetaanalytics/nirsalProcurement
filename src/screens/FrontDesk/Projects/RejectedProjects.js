@@ -1,4 +1,4 @@
-import React,{ useEffect,useState  } from "react";
+import React,{ useEffect  } from "react";
 import MaterialTable from "material-table"
 import {
   MenuBar,
@@ -6,23 +6,22 @@ import {
   PageTitle,
 } from "../../../components";
 import { useSelector, useDispatch } from "react-redux";
-import { useToast } from "@chakra-ui/react";
+
 // import data from "../../../redux/data";
 import { frontDeskRejectedProject } from "../../../redux/actions/FrontDesk/frontDeskProjectActions";
 
 const FrontDeskRejectedProject = () => {
   // Helpers
   const dispatch = useDispatch();
-  const toast = useToast();
 
-  const createRole = useSelector((state) => state.createRole);
-  const { loading, error, data } = createRole;
-  const  [tableData,setTableData] = useState([]);
 
+  const getFrontDeskRejectedProject = useSelector((state) => state.getFrontDeskRejectedProject);
+  const { loading, rejectedProject =[]} = getFrontDeskRejectedProject;
+
+  
   useEffect(()=>{
     dispatch(frontDeskRejectedProject())
-    setTableData(data)
-},[tableData,dispatch])
+},[dispatch])
 
   // Menubar Items
   const menu = [
@@ -41,28 +40,15 @@ const FrontDeskRejectedProject = () => {
         <MenuBar menu={menu} />
         {loading ? (
           <h1>Loading...</h1>
-        ) : data && data.length == 0 ? (
-          <div className="pageContents">
-            <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-              <div style={{borderRadius:"50%",
-              height:"300px",
-              width:"300px", 
-              border: "10px solid rgba(196,196,196,0.32)",
-               display:"flex",
-               fontSize:"12px",
-               justifyContent:"center",
-               alignItems:"center",textAlign:"center",backgroundColor:"#C4C4C4"}}>There are no Rejected Projects</div>
-              </div>
-          </div>
-          ) : (
+        ) :   (
           <MaterialTable
             columns={[
               { title: "SN", field: "tableData.id", render:rowData => rowData.tableData.id+1},
-              { title: "Employee Name", field: "employeeName" },
+              { title: "Employee Name", field: "name" },
               
               {
                 title: "Employee Email",
-                field: "employeeEmail",
+                field: "email",
                 align:"center"
               },
               {
@@ -77,18 +63,17 @@ const FrontDeskRejectedProject = () => {
               },
               {
                 title: "Head of Procurement",
-                field: "headOfProcurement",
+                field: "headOfProcurement.name",
                 align:"center"
               },
               
             ]}
-            data={tableData}
-            title="Rejected Projects" 
+            data={rejectedProject}
+            title={`Rejected Projects: ${rejectedProject.length}`} 
             options={{
-              exportButton: true,
+             
               headerStyle: {
-                backgroundColor: "#6B9109",
-                color: "white",
+               
                 fontSize: 14,
                 borderBottom: "1px solid rgba(196, 196, 196, 0.32)",
               },

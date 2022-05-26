@@ -108,14 +108,15 @@ export const frontdeskInitiateProject = (employeeEmail,employeeName,projectTitle
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
-           Authorization: `Bearer ${userInfo.userInfo}`,
+           Authorization: `Bearer ${userInfo.token}`,
         },
       };
-      const { data } = await axios.get(`api/v1/projectInitiation/Declined`, config);
+      const { data } = await axios.get(`/api/v1/projectInitiation/declined`, config);
       dispatch({
         type: GET_REJECTED_PROJECT_SUCCESS,
         payload: data,
       });
+      console.log(data)
     } catch (error) {
       dispatch({
         type: GET_REJECTED_PROJECT_FAIL,

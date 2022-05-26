@@ -21,7 +21,7 @@ export const initiateNewProjectReducer = (state = {}, action) => {
       case GET_CONFIRMED_PROJECT_REQUEST:
         return { loading: true };
       case GET_CONFIRMED_PROJECT_SUCCESS:
-        return { loading: false, success: true,  data:action.payload };
+        return { loading: false, success: true,  confirmedProject:action.payload };
       case GET_CONFIRMED_PROJECT_FAIL:
         return { loading: false, error: action.payload };
       default:
@@ -34,7 +34,7 @@ export const initiateNewProjectReducer = (state = {}, action) => {
       case GET_PENDING_PROJECT_REQUEST:
         return { loading: true };
       case GET_PENDING_PROJECT_SUCCESS:
-        return { loading: false, success: true, data:action.payload.data};
+        return { loading: false, success: true, pendingProject:action.payload.data};
       case GET_PENDING_PROJECT_FAIL:
         return { loading: false, error: action.payload };
       default:
@@ -47,7 +47,7 @@ export const initiateNewProjectReducer = (state = {}, action) => {
       case GET_REJECTED_PROJECT_REQUEST:
         return { loading: true };
       case GET_REJECTED_PROJECT_SUCCESS:
-        return { loading: false, success: true, data:action.payload };
+        return { loading: false, success: true, rejectedProject:action.payload.data };
       case GET_REJECTED_PROJECT_FAIL:
         return { loading: false, error: action.payload };
       default:
