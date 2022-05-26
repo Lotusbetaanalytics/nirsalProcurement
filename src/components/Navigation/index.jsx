@@ -16,8 +16,6 @@ const Navigation = () => {
   const userProfile = useSelector((state) => state.userProfile);
   const { user = {} } = userProfile;
   const role = "hop";
-
-  console.log(user);
   useEffect(() => {
     // get loggedin user
     dispatch(getMe());

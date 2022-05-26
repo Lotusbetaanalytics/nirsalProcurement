@@ -5,8 +5,13 @@ import { approveProject, assignProject } from "../ProjectApiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleProject } from "../../../../redux/actions/hop/projectActions";
 import { getListOfPdo } from "../../../../redux/actions/staff/staffActions";
-import { SelectInput } from "../../../../components/Forms/Select";
+import {
+  SelectInput,
+  SelectOfficers,
+} from "../../../../components/Forms/Select";
 import { getAllTeams } from "../../../../redux/actions/team/teamAction";
+import axios from "axios";
+import { useToast } from "@chakra-ui/react";
 
 //  @desc     Confirm Project
 //  @props    projectId, handleClose
@@ -27,8 +32,6 @@ export const ConfirmProject = ({ id, handleClose }) => {
 
   const { success, project } = useSelector((state) => state.getProject);
   const getRoleState = useSelector((state) => state.getRole);
-
-  console.log(getRoleState);
 
   React.useEffect(() => {
     if (success) {
@@ -129,7 +132,11 @@ export const AssignProject = ({ id, handleClose }) => {
     frontDeskOfficer: "",
   });
 
+  const toast = useToast();
   const dispatch = useDispatch();
+  const [assignee, setAssignee] = React.useState("");
+  const [assigneeTeam, setAssigneeTeam] = React.useState("");
+  const [loadingStaff, setLoadingStaff] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [findingData, setFindingData] = React.useState(false);
   const [projectTitle, setProjectTitle] = React.useState("");
@@ -139,13 +146,12 @@ export const AssignProject = ({ id, handleClose }) => {
   const [vendorName, setVendorName] = React.useState("");
   const [files, setFiles] = React.useState([]);
   const [projectName, setProjectName] = React.useState("");
-  const [pdo, setPdo] = React.useState("");
+  const [responsibleOfficer, setResponsibleOfficer] = React.useState("");
   const [comment, setComment] = React.useState("");
   const [teams, setTeams] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [openSecond, setOpenSecond] = React.useState(false);
   const [team, setTeam] = React.useState("");
-
   const { success, project } = useSelector((state) => state.getProject);
   const listOfPdoRequest = useSelector((state) => state.listOfPdo);
   const getTeamRequest = useSelector((state) => state.teams);
@@ -161,9 +167,6 @@ export const AssignProject = ({ id, handleClose }) => {
       setTeams(getTeamRequest.data);
     }
   }, [getTeamRequest.success, getTeamRequest.data]);
-
-  console.log(teams, team, ">>>>>>>");
-  console.log(listOfPDO, ">oo>>>>>>");
 
   React.useEffect(() => {
     if (success) {
@@ -188,7 +191,13 @@ export const AssignProject = ({ id, handleClose }) => {
   const onAssignHandler = (event) => {
     event.preventDefault();
     setLoading(true);
-    assignProject(id, setLoading, handleClose);
+    const data = {
+      comment,
+      responsibleUnit: team,
+      responsibleOfficer,
+      projectTitle,
+    };
+    assignProject(id, data, setLoading, handleClose, toast);
   };
 
   const openModal = () => {
@@ -205,18 +214,47 @@ export const AssignProject = ({ id, handleClose }) => {
     setOpenSecond(false);
   };
 
-  const Content = (staff) => {
+  React.useEffect(() => {
+    if (responsibleOfficer) {
+      setLoadingStaff(true);
+      axios
+        .get(`/api/v1/staff/${responsibleOfficer}`, {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem("userInfo")).token
+            }`,
+          },
+        })
+        .then((res) => {
+          setAssignee(res.data.data.fullname);
+          setAssigneeTeam(res.data.data.team["title"]);
+          setLoadingStaff(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoadingStaff(false);
+        });
+    }
+  }, [responsibleOfficer]);
+
+  const Content = () => {
     return (
       <div className="permissionPrompt">
         <div>
           Are you sure you want to assign this project to <br />
-          <strong>{staff}</strong>?
+          <strong>{assignee}</strong> in {assigneeTeam}?
         </div>
         <div className="promptButton">
-          <button onClick={onAssignHandler}>Yes</button>
+          {loading ? (
+            <button disabled>Assigning...</button>
+          ) : (
+            <button onClick={onAssignHandler}>Yes</button>
+          )}
           <button
+            disabled={loading}
             onClick={() => {
               closeModal();
+              setResponsibleOfficer("");
             }}
           >
             No
@@ -229,8 +267,7 @@ export const AssignProject = ({ id, handleClose }) => {
     const clearInputs = () => {
       closeModalSecond();
       setComment("");
-      setProjectTitle("");
-      setPdo("");
+      setResponsibleOfficer("");
       setTeam("");
     };
 
@@ -253,7 +290,13 @@ export const AssignProject = ({ id, handleClose }) => {
 
   return (
     <div>
-      <form onSubmit={onAssignHandler} className="projectForm">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          openModal();
+        }}
+        className="projectForm"
+      >
         <div>
           <label>Name</label>
           <input
@@ -289,16 +332,19 @@ export const AssignProject = ({ id, handleClose }) => {
             title="Team"
             show="title"
             onChange={(e) => setTeam(e.target.value)}
+            required={true}
           />
         </div>
         <div>
           <label>Responsible Officer</label>
-          <SelectInput
-            data={listOfPDO}
-            value={pdo}
+          <SelectOfficers
+            value={responsibleOfficer}
+            id={team}
             title="Officer"
-            show="email"
-            onChange={(e) => setPdo(e.target.value)}
+            show="fullname"
+            onChange={(e) => setResponsibleOfficer(e.target.value)}
+            success={getTeamRequest.success}
+            required={true}
           />
         </div>
         <div>
@@ -319,19 +365,12 @@ export const AssignProject = ({ id, handleClose }) => {
           >
             Cancel
           </span>
-          <button
-            type="submit"
-            className="btn__assign"
-            onClick={(e) => {
-              e.preventDefault();
-              openModal();
-            }}
-          >
+          <button type="submit" className="btn__assign" disabled={loadingStaff}>
             Assign
           </button>
         </section>
       </form>
-      <Modal isVisible={open} onClose={closeModal} content={Content(name)} />
+      <Modal isVisible={open} onClose={closeModal} content={Content()} />
       <Modal
         isVisible={openSecond}
         onClose={closeModalSecond}

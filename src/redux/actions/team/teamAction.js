@@ -42,7 +42,7 @@ export const getSingleTeam = (id) => async (dispatch, getState) => {
       type: GET_SINGLE_TEAM_REQUEST,
     });
 
-    const response = await axios.get(`/api/v1/team/${id}`, {
+    const response = await axios.get(`/api/v1/staff/team/${id}`, {
       contentType: "application/json",
       headers: {
         Authorization: `Bearer ${

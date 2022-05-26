@@ -49,11 +49,8 @@ export const getMe = () => async (dispatch, getState) => {
         "Access-Control-Allow-Origin": "*",
         Authorization: `Bearer ${userInfo.token}`,
       },
-      
     };
 
-    console.log(userInfo.token)
-   
     const { data } = await axios.get(`/api/v1/auth`, config);
     dispatch({
       type: USER_PROFILE_SUCCESS,

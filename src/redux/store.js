@@ -29,7 +29,10 @@ import {
 } from "./reducers/getAllProjectsReducer/getAllProjectReducer";
 import { headofProcurementReducer } from "./reducers/HeadofProcurement/HeadofProcurementReducer";
 import { getPdoListReducer } from "./reducers/staff/staffReducer";
-import { getTeamReducer } from "./reducers/team/teamReducer";
+import {
+  getSingleTeamReducer,
+  getTeamReducer,
+} from "./reducers/team/teamReducer";
 
 const reducer = combineReducers({
   userLogin: authReducer,
@@ -54,6 +57,7 @@ const reducer = combineReducers({
   getHeadofProcurement: headofProcurementReducer,
   listOfPdo: getPdoListReducer,
   teams: getTeamReducer,
+  team: getSingleTeamReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

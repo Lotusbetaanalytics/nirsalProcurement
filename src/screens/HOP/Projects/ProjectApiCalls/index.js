@@ -106,11 +106,12 @@ export const getSingleProject = (id, setLoading, setData, ...rest) => {
     });
 };
 
-export const assignProject = (id, setLoading, setData, handleClose) => {
+export const assignProject = (id, data, setLoading, handleClose, toast) => {
   return axios
     .patch(
-      `/api/v1/projectInitiation/assign/${id}`,
-      {},
+      `/api/v1/projectOnboarding/${id}/assign`,
+
+      data,
       {
         headers: {
           "Content-Type": "application/json",
@@ -121,13 +122,29 @@ export const assignProject = (id, setLoading, setData, handleClose) => {
       }
     )
     .then(({ data }) => {
-      setData(data.data);
+      console.log(data, "patched");
       setLoading(false);
       handleClose();
+      toast({
+        title: "Project Assigned",
+        description: "Project has been assigned successfully",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+        position: "bottom-left",
+      });
     })
     .catch((error) => {
       console.log(error);
       setLoading(false);
+      toast({
+        title: "An error has occurred",
+        description: "Oops! Something went wrong! Please try again",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "bottom-left",
+      });
     });
 };
 export const approveProject = (id, setLoading, setData, handleClose) => {
