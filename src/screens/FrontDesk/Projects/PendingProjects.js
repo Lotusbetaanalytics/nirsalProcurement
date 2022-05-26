@@ -85,7 +85,8 @@ const columns=[
           columns={columns}
           data={pendingProject}
           title={`Pending Projects: ${pendingProject.length}`}
-          options={{
+          options={
+            {
             headerStyle: {
               
               fontSize: 14,
@@ -95,7 +96,10 @@ const columns=[
               color: "#FF00dd",
             },
             actionsColumnIndex: -1,
+            
           }}
+          
+          
           
           style={{
             boxShadow: "none",
@@ -123,7 +127,7 @@ const columns=[
             Action: (props) => (
               <button
                 onClick={(event) => props.action.onClick(event, props.data)}
-                // className="btn__table btn__assign"
+                className={styles.material_btn}
               >
                 {props.action.tooltip}
               </button>

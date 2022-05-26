@@ -21,7 +21,7 @@ const FrontDeskConfirmedProject = () => {
   
   const getFrontDeskConfirmedProject = useSelector((state) => state.getFrontDeskConfirmedProject);
   const { loading, confirmedProject=[]} = getFrontDeskConfirmedProject;
-  console.log(confirmedProject)
+  
 
   
   // Menubar Items
@@ -33,6 +33,11 @@ const FrontDeskConfirmedProject = () => {
 
   const columns=[
     {
+      title: "Employee Name",
+      field: "name",
+      type:"string"
+    },
+    {
       title: "Employee Email",
       field: "email",
       type:"string"
@@ -42,17 +47,16 @@ const FrontDeskConfirmedProject = () => {
       field: "projectTitle",
       type:"string"
     },
-    // {
-    //   title: "Vendor Name",
-    //   field: "vendorName",
-    //   type:"string"
-    // },
     {
-      title: "Head of Procurement",
-      field: "headOfProcurement.email",
+      title: "Vendor Name",
+      field: "vendorName",
       type:"string"
     },
-    
+    {
+      title: "Head of Procurement",
+      field: "headOfProcurement.fullname",
+      type:"string"
+    },
   ]
 
 
@@ -67,13 +71,11 @@ const FrontDeskConfirmedProject = () => {
         )  : (
           <MaterialTable
           columns={columns}
-            data={[]}
+            data={[confirmedProject]}
             title="Confirmed Projects"
             options={{
               exportButton: true,
               headerStyle: {
-                backgroundColor: "#6B9109",
-                color: "white",
                 fontSize: 14,
                 borderBottom: "1px solid rgba(196, 196, 196, 0.32)",
               },
