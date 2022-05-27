@@ -13,6 +13,12 @@ import {
   GET_CLOSEDPROJECTS_REQUEST,
   GET_CLOSEDPROJECTS_SUCCESS,
   GET_CLOSEDPROJECTS_FAIL,
+  GET_APPROVEDPROJECTS_REQUEST,
+  GET_APPROVEDPROJECTS_SUCCESS,
+  GET_APPROVEDPROJECTS_FAIL,
+  GET_TERMINATEDPROJECTS_SUCCESS,
+  GET_TERMINATEDPROJECTS_FAIL,
+  GET_TERMINATEDPROJECTS_REQUEST,
 } from "../../constants/getAllProjectsConstant/getAllProjectsConstant";
 
 export const getAllProjects = () => async (dispatch, getState) => {
@@ -140,7 +146,7 @@ export const getClosedProjects = () => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.get(
-      "/api/v1/projectInitiation/pending",
+      "/api/v1/projectInitiation/completed",
       config
     );
     dispatch({
@@ -152,6 +158,80 @@ export const getClosedProjects = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: GET_CLOSEDPROJECTS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getApprovedProjects = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: GET_APPROVEDPROJECTS_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.get(
+      "/api/v1/projectInitiation/approved",
+      config
+    );
+    dispatch({
+      type: GET_APPROVEDPROJECTS_SUCCESS,
+      payload: data,
+    });
+    console.log(data);
+    localStorage.setItem("approvedProject", JSON.stringify(data));
+  } catch (error) {
+    dispatch({
+      type: GET_APPROVEDPROJECTS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getTerminatedProjects = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: GET_TERMINATEDPROJECTS_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.get(
+      "/api/v1/projectInitiation/terminated",
+      config
+    );
+    dispatch({
+      type: GET_TERMINATEDPROJECTS_SUCCESS,
+      payload: data,
+    });
+    console.log(data);
+    localStorage.setItem("terminatedProject", JSON.stringify(data));
+  } catch (error) {
+    dispatch({
+      type: GET_TERMINATEDPROJECTS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

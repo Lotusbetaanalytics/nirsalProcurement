@@ -24,8 +24,11 @@ import {
 } from "./reducers/HopReducer/getProjectUserReducer";
 import {
   getAllProjectReducer,
+  getApprovedProjectReducer,
+  getClosedProjectReducer,
   getNewProjectReducer,
   getPendingProjectReducer,
+  getTerminatedProjectReducer,
 } from "./reducers/getAllProjectsReducer/getAllProjectReducer";
 import { headofProcurementReducer } from "./reducers/HeadofProcurement/HeadofProcurementReducer";
 import { getPdoListReducer } from "./reducers/staff/staffReducer";
@@ -53,11 +56,14 @@ const reducer = combineReducers({
   getProjectPerson: getProjectDeskReducer,
   getProjectAll: getAllProjectReducer,
   getProjectNew: getNewProjectReducer,
+  getClosedProject: getClosedProjectReducer,
   getProjectPending: getPendingProjectReducer,
   getHeadofProcurement: headofProcurementReducer,
   listOfPdo: getPdoListReducer,
   teams: getTeamReducer,
   team: getSingleTeamReducer,
+  getProjectApproved: getApprovedProjectReducer,
+  getTerminated: getTerminatedProjectReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
